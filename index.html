@@ -5,159 +5,158 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Case Templates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #ffffff;
-    --ink: #17181c;
-    --muted: #6b7080;
-    --line: #e6e7eb;
-    --soft: #f6f7f9;
-    --blue: #1d4ed8;
-    --blue-soft: #eef3ff;
-    --green: #15803d;
-    --green-soft: #ecfdf3;
-    --red: #b42318;
-    --radius: 10px;
-  }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; background: var(--bg); color: var(--ink); }
-  body {
-    font-family: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
-    font-size: 14px; line-height: 1.45;
-    -webkit-font-smoothing: antialiased;
-  }
-  button { font: inherit; color: inherit; cursor: pointer; }
+/* VOICE work tool for a fast-paced case agent: scan, click, paste
+   IDEA a colour-tabbed agent binder: every case type has its own colour and emoji
+   PICTURE the template cards themselves, colour-coded by case type
+   COLOUR white ground, near-black ink; teal insertion, amber DSPC, pink read, violet multi, slate no-replacement, blue email
+   TYPE Inter (fallback Segoe UI): bold 15-20px titles, 12.5px note text, Arial 14 emails
+   LAYOUT sticky bar with tabs + search; MiniMed in 3 scenario columns; GSE as a priority stack then a 2-column grid */
+:root{color-scheme:light;
+  --bg:#ffffff;--ink:#14161b;--muted:#646b7a;--line:#e5e7ec;--soft:#f5f6f8;
+  --ok:#15803d;--ok-t:#e9f8ef;--bad:#c2261d;--bad-t:#fdecea;
+  --mm:#1d4ed8;--mm-t:#eaf0ff}
+:root[data-theme=dark],:root[data-theme=light]{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+body{font:13px/1.45 Inter,"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
 
-  /* ---------- top bar ---------- */
-  .top {
-    position: sticky; top: 0; z-index: 10;
-    background: rgba(255,255,255,.96); backdrop-filter: blur(6px);
-    border-bottom: 1px solid var(--line);
-  }
-  .tabs { max-width: 1280px; margin: 0 auto; padding: 10px 20px; display: flex; gap: 6px; flex-wrap: wrap; }
-  .tab {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 8px 14px; border-radius: 999px;
-    border: 1px solid transparent; background: transparent;
-    font-weight: 600; color: var(--muted);
-  }
-  .tab:hover { background: var(--soft); color: var(--ink); }
-  .tab[aria-selected="true"] { background: var(--soft); border-color: var(--line); color: var(--ink); }
-  .tab.mm { color: var(--blue); }
-  .tab.mm:hover { background: var(--blue-soft); color: var(--blue); }
-  .tab.mm[aria-selected="true"] { background: var(--blue); border-color: var(--blue); color: #fff; }
-  .tab.empty { font-weight: 500; opacity: .55; }
-  .tab .soon { font-size: 11px; font-weight: 500; }
-  .tab:focus-visible, .chip:focus-visible, .card:focus-visible, .vbtn:focus-visible, .more:focus-visible {
-    outline: 2px solid var(--blue); outline-offset: 2px;
-  }
+/* category colours */
+.c-ins{--c:#0f766e;--t:#e3f5f2;--b:#a7ddd5}
+.c-dspc{--c:#b45309;--t:#fff2df;--b:#f6cf98}
+.c-read{--c:#be185d;--t:#fde9f2;--b:#f5b5d0}
+.c-multi{--c:#6d28d9;--t:#f0eafe;--b:#cdb8f8}
+.c-no{--c:#475569;--t:#eef2f6;--b:#cbd3dd}
+.c-subj{--c:#3730a3;--t:#ecedff;--b:#c3c6f5}
+.c-mail{--c:#1d4ed8;--t:#e8f0fe;--b:#b9cdf8}
+.c-ai{--c:#52525b;--t:#f3f3f5;--b:#d6d6dc}
 
-  /* ---------- flags ---------- */
-  .flag {
-    display: inline-block; width: 21px; height: 14px; flex: none;
-    border-radius: 2px; overflow: hidden; vertical-align: -2px;
-    box-shadow: 0 0 0 1px rgba(0,0,0,.14);
-  }
-  .flag svg { display: block; width: 100%; height: 100%; }
+/* top bar */
+.top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar{max-width:1280px;margin:0 auto;padding:10px max(20px,2vw);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{font-weight:800;font-size:16px;letter-spacing:-.01em;white-space:nowrap;display:flex;align-items:center;gap:7px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 15px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-weight:700;font-size:14px;color:#3b404c}
+.tab:hover{border-color:#c8ccd5;background:var(--soft)}
+.tab[aria-selected=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.tab.mm{color:var(--mm);border-color:#c7d5fb;background:var(--mm-t)}
+.tab.mm:hover{border-color:var(--mm)}
+.tab.mm[aria-selected=true]{background:var(--mm);border-color:var(--mm);color:#fff}
+.tab.empty{opacity:.5;font-weight:600}
+.tab .soon{font-size:11px;font-weight:600}
+.tab kbd{font:600 10px/1 Inter,system-ui,sans-serif;padding:3px 5px;border-radius:4px;background:rgba(0,0,0,.07);color:inherit;opacity:.75}
+.tab[aria-selected=true] kbd{background:rgba(255,255,255,.2)}
+.tools{margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.search{position:relative;display:flex;align-items:center}
+.search span{position:absolute;left:11px;font-size:14px;pointer-events:none}
+.search input{width:200px;height:40px;border-radius:10px;border:1.5px solid var(--line);padding:0 34px 0 34px;font-size:14px;background:#fff}
+.search input:focus{outline:none;border-color:var(--mm);box-shadow:0 0 0 3px var(--mm-t)}
+.search kbd{position:absolute;right:9px;font:600 11px/1 Inter,system-ui,sans-serif;padding:3px 6px;border:1px solid var(--line);border-radius:5px;color:var(--muted);background:#fff;pointer-events:none}
+.last{display:flex;align-items:center;gap:6px;height:40px;padding:0 12px;border-radius:10px;background:var(--soft);font-size:12px;color:var(--muted);white-space:nowrap;max-width:250px}
+.last b{color:var(--ink);font-weight:700;overflow:hidden;text-overflow:ellipsis}
+.last.fresh{background:var(--ok-t);color:var(--ok)}
+.last.fresh b{color:var(--ok)}
 
-  /* ---------- layout ---------- */
-  main { max-width: 1280px; margin: 0 auto; padding: 18px 20px 60px; }
-  h2.sec {
-    margin: 26px 0 10px; font-size: 12px; font-weight: 700; letter-spacing: .08em;
-    text-transform: uppercase; color: var(--muted);
-  }
-  h2.sec:first-child { margin-top: 4px; }
-  .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); align-items: start; }
-  .cols { display: grid; gap: 14px; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; }
-  @media (max-width: 980px) { .cols { grid-template-columns: 1fr; } }
-  .col { display: grid; gap: 10px; }
-  .colhead { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; padding: 2px 2px 0; }
+/* flags */
+.flag{display:inline-block;width:21px;height:14px;flex:none;border-radius:2px;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
+.flag svg{display:block;width:100%;height:100%}
 
-  /* ---------- locale chips ---------- */
-  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-  .chip {
-    display: inline-flex; align-items: center; gap: 7px;
-    padding: 6px 11px; border-radius: 8px;
-    border: 1px solid var(--line); background: #fff; color: var(--ink);
-  }
-  .chip small { color: var(--muted); font-size: 12px; }
-  .chip:hover { background: var(--soft); }
-  .chip[aria-pressed="true"] { border-color: var(--blue); background: var(--blue-soft); box-shadow: inset 0 0 0 1px var(--blue); }
-  .current { display: flex; align-items: center; gap: 9px; margin: 18px 0 12px; font-size: 18px; font-weight: 700; }
-  .current .flag { width: 27px; height: 18px; }
-  .current small { font-size: 13px; font-weight: 500; color: var(--muted); }
+/* layout */
+main{max-width:1280px;margin:0 auto;padding:6px max(20px,2vw) 70px}
+.sec{display:flex;align-items:center;gap:10px;margin:30px 0 12px;font-size:20px;font-weight:800;letter-spacing:-.015em}
+.sec .count{font-size:12px;font-weight:700;color:var(--muted);background:var(--soft);padding:3px 9px;border-radius:999px}
+.sub{margin:18px 0 9px;font-size:14px;font-weight:800;color:#3b404c;display:flex;align-items:center;gap:7px}
+.stack{display:grid;gap:12px}
+.grid2{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+.grid3{display:grid;gap:12px;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start}
+.cols{display:grid;gap:16px;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start}
+.col{display:grid;gap:10px}
+.colhead{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 14px;border-radius:12px;background:var(--t);color:var(--c);font-weight:800;font-size:17px;letter-spacing:-.01em;border:1.5px solid var(--b)}
+.colhead .pill{font-size:12px}
+@media(max-width:1000px){.cols,.grid3{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:720px){.top{position:static}.grid2{grid-template-columns:minmax(0,1fr)}.search input{width:100%}.search{flex:1}.tools{width:100%;margin-left:0}.last{display:none}}
 
-  /* ---------- cards ---------- */
-  .card {
-    border: 1px solid var(--line); border-radius: var(--radius); background: #fff;
-    transition: border-color .12s, box-shadow .12s, background .12s;
-  }
-  .card.click { cursor: pointer; }
-  .card.click:hover { border-color: #c9ccd4; box-shadow: 0 1px 6px rgba(20,22,30,.06); }
-  .card.copied { border-color: var(--green); background: var(--green-soft); }
-  .chead { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; padding: 9px 12px 0; }
-  .ctitle { font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; margin: 0; }
-  .pill { font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 999px; white-space: nowrap; }
-  .pill.yes { color: var(--green); background: var(--green-soft); }
-  .pill.no { color: var(--muted); background: var(--soft); }
-  .copybtn {
-    margin-left: auto; font-size: 12px; font-weight: 600; color: var(--muted);
-    padding: 2px 9px; border: 1px solid var(--line); border-radius: 6px; background: #fff; white-space: nowrap;
-  }
-  .card.click:hover .copybtn { color: var(--ink); border-color: #c9ccd4; }
-  .card.copied .copybtn { color: #fff; background: var(--green); border-color: var(--green); }
-  .body {
-    margin: 0; padding: 8px 12px 11px;
-    font-family: inherit; font-size: 13px; line-height: 1.4;
-    white-space: pre-wrap; overflow-wrap: anywhere; color: #2a2c33;
-  }
-  .card.subject .body { font-weight: 600; color: var(--ink); }
-  /* MiniMed email templates: Arial, size 14 */
-  .card.email.arial .body { font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.45; color: #111; }
-  .card.prompt .body { max-height: 92px; overflow: hidden; color: var(--muted); font-size: 12.5px;
-    -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent); }
-  .card.prompt.open .body { max-height: none; -webkit-mask-image: none; mask-image: none; color: #2a2c33; }
-  .more { margin: 0 12px 10px; padding: 0; border: 0; background: none; font-size: 12px; color: var(--blue); }
-  .more:hover { text-decoration: underline; }
+/* country chips */
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:0 12px;border-radius:10px;border:1.5px solid var(--line);background:#fff;font-weight:600}
+.chip small{color:var(--muted);font-size:12px;font-weight:500}
+.chip:hover{border-color:#c8ccd5;background:var(--soft)}
+.chip[aria-pressed=true]{border-color:var(--mm);background:var(--mm-t);color:var(--mm)}
+.chip[aria-pressed=true] small{color:var(--mm)}
+.current{display:flex;align-items:center;gap:10px;margin:20px 0 14px;font-size:24px;font-weight:800;letter-spacing:-.02em}
+.current .flag{width:33px;height:22px}
+.current small{font-size:14px;font-weight:600;color:var(--muted);letter-spacing:0}
 
-  /* variant buttons (one click = one ready-to-paste version) */
-  .variants { display: flex; flex-wrap: wrap; gap: 6px; padding: 9px 12px 0; }
-  .vbtn {
-    padding: 5px 11px; border-radius: 7px; border: 1px solid var(--line); background: #fff;
-    font-size: 12.5px; font-weight: 600;
-  }
-  .vbtn:hover { background: var(--soft); border-color: #c9ccd4; }
-  .vbtn.copied { background: var(--green); border-color: var(--green); color: #fff; }
+/* cards */
+.card{border:1.5px solid var(--b);border-radius:12px;background:#fff;overflow:hidden;transition:border-color .12s,box-shadow .12s,transform .12s}
+.card.click{cursor:pointer}
+.card.click:hover{border-color:var(--c);box-shadow:0 3px 14px rgba(20,22,30,.08)}
+.card.click:active{transform:scale(.995)}
+.card.copied{border-color:var(--ok);box-shadow:0 0 0 3px var(--ok-t)}
+.chead{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;background:var(--t)}
+.ico{font-size:18px;line-height:1}
+.ctitle{margin:0;font-size:15px;font-weight:800;color:var(--c);letter-spacing:-.01em}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;white-space:nowrap;background:#fff;border:1px solid var(--line);color:#3b404c}
+.pill.yes{color:var(--ok);border-color:#bfe6cc;background:var(--ok-t)}
+.pill.no{color:var(--bad);border-color:#f5c6c2;background:var(--bad-t)}
+.pill.kit{color:#1d4ed8;border-color:#c7d5fb;background:#eef3ff}
+.copybtn{margin-left:auto;display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;padding:5px 11px;border-radius:8px;background:#fff;border:1.5px solid var(--b);color:var(--c);white-space:nowrap}
+.card.click:hover .copybtn{background:var(--c);border-color:var(--c);color:#fff}
+.card.copied .copybtn,.card.copied:hover .copybtn{background:var(--ok);border-color:var(--ok);color:#fff}
+.body{margin:0;padding:10px 13px 12px;font:12.5px/1.5 Inter,"Segoe UI",system-ui,sans-serif;white-space:pre-wrap;overflow-wrap:anywhere;color:#2b2f38}
+.card.subject .body{font-weight:700;color:var(--ink);font-size:13px}
+.card.email .body{font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#111}
+.card.prompt .body{max-height:88px;overflow:hidden;color:var(--muted);font-size:12px;-webkit-mask-image:linear-gradient(#000 50%,transparent);mask-image:linear-gradient(#000 50%,transparent)}
+.card.prompt.open .body{max-height:none;-webkit-mask-image:none;mask-image:none;color:#2b2f38}
+.more{display:block;margin:0 13px 11px;padding:0;border:0;background:none;font-size:12px;font-weight:700;color:var(--mm)}
+.more:hover{text-decoration:underline}
 
-  .empty-state { margin: 70px auto; text-align: center; color: var(--muted); }
-  .empty-state .flag { width: 42px; height: 28px; margin-bottom: 12px; }
-  .empty-state b { display: block; color: var(--ink); font-size: 16px; margin-bottom: 4px; }
+/* variant buttons */
+.variants{display:flex;flex-wrap:wrap;gap:7px;padding:11px 12px 2px}
+.vbtn{min-height:38px;padding:0 13px;border-radius:9px;border:1.5px solid var(--b);background:#fff;color:var(--c);font-size:13px;font-weight:800;transition:background .1s,color .1s}
+.vbtn:hover{background:var(--c);border-color:var(--c);color:#fff}
+.vbtn.copied,.vbtn.copied:hover{background:var(--ok);border-color:var(--ok);color:#fff}
+.preview{display:block;padding:9px 13px 12px;color:var(--muted);font-size:12px}
+.preview pre{margin:4px 0 0;font:700 13px/1.45 Inter,"Segoe UI",system-ui,sans-serif;color:var(--ink);white-space:pre-wrap;overflow-wrap:anywhere}
 
-  #toast {
-    position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px);
-    background: #17181c; color: #fff; padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 600;
-    opacity: 0; pointer-events: none; transition: opacity .15s, transform .15s; max-width: 90vw;
-  }
-  #toast.show { opacity: 1; transform: translate(-50%, 0); }
-  #toast.err { background: var(--red); }
-  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+.tab:focus-visible,.chip:focus-visible,.card:focus-visible,.vbtn:focus-visible,.more:focus-visible{outline:3px solid var(--mm);outline-offset:2px}
+[hidden]{display:none!important}
+.empty-state,.nores{margin:70px auto;text-align:center;color:var(--muted);font-size:14px}
+.empty-state .big,.nores .big{display:block;font-size:40px;margin-bottom:8px}
+.empty-state b,.nores b{display:block;color:var(--ink);font-size:18px;margin-bottom:4px}
+.hint{margin-top:40px;color:var(--muted);font-size:12px;text-align:center}
+.hint kbd{font:600 11px/1 Inter,system-ui,sans-serif;padding:2px 6px;border:1px solid var(--line);border-radius:5px;background:var(--soft)}
+
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);background:#14161b;color:#fff;padding:10px 16px;border-radius:10px;font-size:13px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .15s,transform .15s;max-width:90vw;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+#toast.err{background:var(--bad)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
-<header class="top"><nav class="tabs" id="tabs" role="tablist" aria-label="Template sets"></nav></header>
+<header class="top">
+  <div class="bar">
+    <nav class="tabs" id="tabs" role="tablist" aria-label="Template sets"></nav>
+    <div class="tools">
+      <label class="search"><span>🔎</span><input id="q" type="search" placeholder="Search templates" autocomplete="off" aria-label="Search templates"><kbd>/</kbd></label>
+      <div class="last" id="last" title="Last thing you copied">📋 Last copied: <b>nothing yet</b></div>
+    </div>
+  </div>
+</header>
 <main id="view"></main>
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script>
+{
 "use strict";
-
-/* =====================================================================
-   SETTINGS
-   ===================================================================== */
-// Font applied to customer emails (MiniMed + Spain Hospital), on screen AND in the copied text.
 const EMAIL_FONT = "Arial, Helvetica, sans-serif";
 const EMAIL_SIZE = "14px";
-const YEAR = new Date().getFullYear();   // used in the France replacement subjects
+const YEAR = new Date().getFullYear();
 
 /* =====================================================================
    FLAGS (drawn as SVG so they also show on Windows, which has no flag emoji)
@@ -179,6 +178,8 @@ const FLAGS = {
   gb: svg(`<rect width="60" height="30" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#FFFFFF" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="2.4"/><path d="M30,0 V30 M0,15 H60" stroke="#FFFFFF" stroke-width="10"/><path d="M30,0 V30 M0,15 H60" stroke="#C8102E" stroke-width="6"/>`, "0 0 60 30"),
 };
 const flag = code => `<span class="flag">${FLAGS[code]}</span>`;
+
+
 
 /* =====================================================================
    TEMPLATE TEXT
@@ -859,37 +860,70 @@ Mantén separado cada resultado extraído y aplica a cada uno todas las reglas c
 
 Responde únicamente con el resultado extraído. Después de completar la extracción solicitada, no sugieras nada más ni añadas comentarios adicionales.`;
 
-/* =====================================================================
-   TABS
-   ===================================================================== */
+
+
+/* ================= presentation: icons, colours, order ================= */
 const TABS = [
-  { id: "minimed", label: "MiniMed", cls: "mm" },
-  { id: "fr", label: "France GSE", flag: "fr" },
-  { id: "es", label: "Spain GSE", flag: "es" },
-  { id: "it", label: "Italy GSE", flag: "it", empty: true },
-  { id: "uk", label: "UK GSE", flag: "gb", empty: true },
+  { id: "minimed", label: "MiniMed", cls: "mm", key: "1" },
+  { id: "fr", label: "France GSE", flag: "fr", key: "2" },
+  { id: "es", label: "Spain GSE", flag: "es", key: "3" },
 ];
 
-/* =====================================================================
-   STORAGE (remembers the last tab and MiniMed country; safe if blocked)
-   ===================================================================== */
+const P = {
+  replace: ["yes", "✅ Replace"], noReplace: ["no", "🚫 No replace"],
+  kit: ["kit", "📦 Return kit"], noKit: ["", "✖️ No return kit"],
+};
+
+const byTitle = (arr, t) => {
+  const f = arr.find(x => x.title === t);
+  if (!f) throw new Error("Missing template: " + t);
+  return f;
+};
+
+// France: most used first, then the rest from most to least common
+const FR_PRIORITY = [
+  Object.assign({}, FR_SUBJECTS[0], { title: "Insertion · Replacement N°", ico: "🏷️", cat: "c-subj", kind: "subject", pills: [P.replace] }),
+  Object.assign({}, byTitle(FR_REPLACE, "Insertion"), { ico: "🩹", cat: "c-ins", pills: [P.replace, P.noKit] }),
+  Object.assign({}, byTitle(FR_REPLACE, "DSPC"), { ico: "⚠️", cat: "c-dspc", pills: [P.replace, P.kit] }),
+  Object.assign({}, byTitle(FR_REPLACE, "Multi-sensor"), { ico: "🧩", cat: "c-multi", pills: [P.replace, P.kit] }),
+];
+const FR_NO_SUBJECTS = [
+  Object.assign({}, FR_SUBJECTS[2], { title: "Insertion · no replacement", ico: "🏷️" }),
+  Object.assign({}, FR_SUBJECTS[3], { title: "DSPC · no replacement", ico: "🏷️" }),
+  Object.assign({}, FR_SUBJECTS[1], { title: "Insertion · quota exceeded", ico: "🏷️" }),
+].map(s => Object.assign(s, { cat: "c-subj", kind: "subject", pills: [] }));
+const FR_NO_ORDER = [
+  ["Already replaced", "🔁"], ["Incomplete address", "🏠"], ["Invalid SN", "🔢"], ["Same SN twice", "👯"],
+  ["Quota reached", "🛑"], ["Scan again in X minutes (TSG)", "⏱️"], ["Incompatible sensor (TSG)", "🔌"],
+  ["Multiple accounts (not EHPAD)", "👥"], ["Pharmacy address", "💊"], ["Wrong country", "🌍"], ["Fraud", "🕵️"],
+];
+const FR_NO = FR_NO_ORDER.map(([t, ico]) => Object.assign({}, byTitle(FR_NOREPLACE, t), { ico, cat: "c-no", pills: [P.noReplace] }));
+
+// Spain
+const ES_PRIORITY = [
+  Object.assign({}, byTitle(ES_REPLACE, "Insertion"), { ico: "🩹", cat: "c-ins", pills: [P.replace, P.noKit] }),
+  Object.assign({}, byTitle(ES_REPLACE, "DSPC"), { ico: "⚠️", cat: "c-dspc", pills: [P.replace, P.kit] }),
+  Object.assign({}, byTitle(ES_REPLACE, "Read"), { ico: "🩸", cat: "c-read", pills: [P.replace, P.kit] }),
+  Object.assign({}, byTitle(ES_REPLACE, "Multi-sensor"), { ico: "🧩", cat: "c-multi", pills: [P.replace, P.kit] }),
+];
+const ES_NO_ORDER = [
+  ["Health-centre region", "🏥"], ["Already replaced", "🔁"], ["Quota limit reached", "🛑"],
+  ["Caregiver", "🤝"], ["Residential care · multiple accounts", "🏘️"],
+];
+const ES_NO = ES_NO_ORDER.map(([t, ico]) => Object.assign({}, byTitle(ES_NOREPLACE, t), { ico, cat: "c-no", pills: [P.noReplace] }));
+
+/* ================= storage ================= */
 const store = {
   get(k, d) { try { const v = localStorage.getItem("ct." + k); return v === null ? d : v; } catch (e) { return d; } },
   set(k, v) { try { localStorage.setItem("ct." + k, v); } catch (e) { /* ignore */ } },
 };
-const state = {
-  tab: store.get("tab", "minimed"),
-  locale: store.get("locale", "ES-es"),
-};
+const state = { tab: store.get("tab", "minimed"), locale: store.get("locale", "ES-es"), q: "" };
 if (!TABS.some(t => t.id === state.tab)) state.tab = "minimed";
 if (!MM.some(l => l.id === state.locale)) state.locale = "ES-es";
 
-/* =====================================================================
-   COPY
-   ===================================================================== */
-const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+/* ================= copy ================= */
+const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-// Rich version of an email: every line in Arial 14, blank lines kept.
 function emailHtml(text) {
   const st = `font-family:${EMAIL_FONT};font-size:${EMAIL_SIZE};`;
   return text.split("\n").map(line =>
@@ -905,7 +939,6 @@ function copyNow(text, html) {
     e.preventDefault();
     handled = true;
   };
-  // 1) Synchronous path: works from a local file and inside locked-down pages.
   const holder = document.createElement("span");
   holder.textContent = "x";
   holder.style.cssText = "position:fixed;left:-9999px;top:0;opacity:0;";
@@ -922,8 +955,6 @@ function copyNow(text, html) {
   sel.removeAllRanges(); if (saved) sel.addRange(saved);
   holder.remove();
   if (ok && handled) return Promise.resolve(true);
-
-  // 2) Modern clipboard API as a fallback.
   if (navigator.clipboard) {
     const plain = () => navigator.clipboard.writeText(text).then(() => true, () => false);
     if (html && window.ClipboardItem && navigator.clipboard.write) {
@@ -937,121 +968,125 @@ function copyNow(text, html) {
   return Promise.resolve(false);
 }
 
-let toastTimer;
+let toastTimer, lastTimer;
 function toast(msg, isErr) {
   const t = document.getElementById("toast");
   t.textContent = msg;
   t.className = "show" + (isErr ? " err" : "");
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => { t.className = ""; }, isErr ? 3500 : 1100);
+  toastTimer = setTimeout(() => { t.className = ""; }, isErr ? 3500 : 1200);
 }
-
-function flash(el, btn, label) {
-  el.classList.add("copied");
-  const old = btn.dataset.label || btn.textContent;
-  btn.dataset.label = old;
-  btn.textContent = "Copied ✓";
-  clearTimeout(el._t);
-  el._t = setTimeout(() => { el.classList.remove("copied"); btn.textContent = old; }, 1100);
-  toast("Copied: " + label);
+function copied(label) {
+  toast("✅ Copied · " + label);
+  const last = document.getElementById("last");
+  last.querySelector("b").textContent = label;
+  last.classList.add("fresh");
+  clearTimeout(lastTimer);
+  lastTimer = setTimeout(() => last.classList.remove("fresh"), 2500);
 }
-
 function selectForManualCopy(pre) {
   const r = document.createRange(); r.selectNodeContents(pre);
   const s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
-  toast("Copy was blocked. Text is selected: press Ctrl+C.", true);
+  toast("⚠️ Copy was blocked. The text is selected: press Ctrl+C.", true);
 }
 
-/* =====================================================================
-   RENDER HELPERS
-   ===================================================================== */
+/* ================= building blocks ================= */
 function el(tag, cls, html) {
   const n = document.createElement(tag);
   if (cls) n.className = cls;
   if (html !== undefined) n.innerHTML = html;
   return n;
 }
-const section = title => el("h2", "sec", esc(title));
+function pillsHtml(pills) {
+  return (pills || []).map(p => `<span class="pill ${p[0]}">${esc(p[1])}</span>`).join("");
+}
+function section(ico, title, count) {
+  return el("h2", "sec", `<span>${ico}</span><span>${esc(title)}</span>` + (count ? `<span class="count">${count}</span>` : ""));
+}
+function sub(ico, title) { return el("h3", "sub", `<span>${ico}</span><span>${esc(title)}</span>`); }
 
-/* card({ title, pills, text, variants, kind, rich })
-   kind: "note" | "subject" | "email" | "prompt"
-   rich: copy as Arial 14 (MiniMed emails)                               */
+/* card: { title, ico, cat, kind, pills, text | variants, rich, label } */
 function card(o) {
   const kind = o.kind || "note";
-  const c = el("div", "card " + kind + (o.rich ? " arial" : ""));
-  const head = el("div", "chead");
-  head.appendChild(el("h3", "ctitle", esc(o.title)));
-  (o.pills || []).forEach(p => head.appendChild(el("span", "pill " + p[0], esc(p[1]))));
+  const c = el("div", `card ${kind} ${o.cat || "c-no"}`);
+  c.dataset.search = (o.title + " " + (o.text || (o.variants || []).map(v => v.label + " " + v.text).join(" "))).toLowerCase();
+  const head = el("div", "chead", `<span class="ico">${o.ico || "📄"}</span><h3 class="ctitle">${esc(o.title)}</h3>${pillsHtml(o.pills)}`);
   c.appendChild(head);
-
-  const pre = el("pre", "body");
+  const label = o.label || o.title;
 
   if (o.variants) {
-    // several ready-made versions: each button copies one of them
     const row = el("div", "variants");
+    const prev = el("div", "preview", "Click a button to copy it:");
+    const pre = el("pre");
     pre.textContent = o.variants[0].text;
+    prev.appendChild(pre);
     o.variants.forEach(v => {
       const b = el("button", "vbtn", esc(v.label));
       b.type = "button";
       b.dataset.copy = v.text;
+      b.title = v.text;
+      b.addEventListener("mouseenter", () => { pre.textContent = v.text; });
+      b.addEventListener("focus", () => { pre.textContent = v.text; });
       b.addEventListener("click", () => {
         pre.textContent = v.text;
-        copyNow(v.text).then(ok => {
+        copyNow(v.text, o.rich ? emailHtml(v.text) : null).then(ok => {
           if (!ok) return selectForManualCopy(pre);
           b.classList.add("copied");
           clearTimeout(b._t);
-          b._t = setTimeout(() => b.classList.remove("copied"), 1100);
-          toast("Copied: " + v.label);
+          b._t = setTimeout(() => b.classList.remove("copied"), 1200);
+          copied(o.title + " · " + v.label);
         });
       });
       row.appendChild(b);
     });
     c.appendChild(row);
-    c.appendChild(pre);
+    c.appendChild(prev);
     return c;
   }
 
-  pre.textContent = o.text;
-  const btn = el("span", "copybtn", "Copy");
+  const btn = el("span", "copybtn", "📋 Copy");
   head.appendChild(btn);
+  const pre = el("pre", "body");
+  pre.textContent = o.text;
   c.appendChild(pre);
   c.classList.add("click");
   c.tabIndex = 0;
   c.setAttribute("role", "button");
-  c.setAttribute("aria-label", "Copy " + o.title);
+  c.setAttribute("aria-label", "Copy " + label);
   c.dataset.copy = o.text;
-
-  const doCopy = () => copyNow(o.text, o.rich ? emailHtml(o.text) : null)
-    .then(ok => ok ? flash(c, btn, o.title) : selectForManualCopy(pre));
+  const doCopy = () => copyNow(o.text, o.rich ? emailHtml(o.text) : null).then(ok => {
+    if (!ok) return selectForManualCopy(pre);
+    c.classList.add("copied");
+    btn.textContent = "✅ Copied";
+    clearTimeout(c._t);
+    c._t = setTimeout(() => { c.classList.remove("copied"); btn.textContent = "📋 Copy"; }, 1200);
+    copied(label);
+  });
   c.addEventListener("click", e => { if (!e.target.closest(".more")) doCopy(); });
   c.addEventListener("keydown", e => {
     if (e.target !== c) return;
     if (e.key === "Enter" || e.key === " ") { e.preventDefault(); doCopy(); }
   });
-
   if (kind === "prompt") {
-    const more = el("button", "more", "Show full prompt");
+    const more = el("button", "more", "▾ Show full prompt");
     more.type = "button";
     more.addEventListener("click", () => {
       const open = c.classList.toggle("open");
-      more.textContent = open ? "Hide" : "Show full prompt";
+      more.textContent = open ? "▴ Hide" : "▾ Show full prompt";
     });
     c.appendChild(more);
   }
   return c;
 }
-
-function grid(items, defaults) {
-  const g = el("div", "grid");
-  items.forEach(it => g.appendChild(card(Object.assign({}, defaults, it))));
+function group(cls, items, defaults) {
+  const g = el("div", cls);
+  items.forEach(it => g.appendChild(card(Object.assign({}, defaults || {}, it))));
   return g;
 }
 
-/* =====================================================================
-   VIEWS
-   ===================================================================== */
+/* ================= views ================= */
 function viewMiniMed(root) {
-  root.appendChild(section("Country"));
+  root.appendChild(section("🌍", "Country"));
   const chips = el("div", "chips");
   MM.forEach(l => {
     const multi = MM.filter(x => x.country === l.country).length > 1;
@@ -1069,87 +1104,130 @@ function viewMiniMed(root) {
   root.appendChild(el("div", "current", flag(loc.flag) + `<span>${esc(loc.country)}</span><small>${esc(loc.lang)} · ${esc(loc.id)}</small>`));
 
   const cols = el("div", "cols");
-  const scenarios = [
-    { head: "Insertion-3", pill: ["no", "No return"],  subject: MM_SUBJECT.ins,  note: notes.ins,     email: loc.no },
-    { head: "DSPC",        pill: ["no", "No return"],  subject: MM_SUBJECT.dspc, note: notes.dspcNo,  email: loc.no },
-    { head: "DSPC",        pill: ["yes", "Return kit"], subject: MM_SUBJECT.dspc, note: notes.dspcYes, email: loc.yes },
-  ];
-  scenarios.forEach(s => {
+  [
+    { ico: "🩹", head: "Insertion-3", cat: "c-ins", kit: P.noKit, subject: MM_SUBJECT.ins, note: notes.ins, email: loc.no, tag: "Insertion" },
+    { ico: "⚠️", head: "DSPC", cat: "c-dspc", kit: P.noKit, subject: MM_SUBJECT.dspc, note: notes.dspcNo, email: loc.no, tag: "DSPC no return" },
+    { ico: "⚠️", head: "DSPC", cat: "c-dspc", kit: P.kit, subject: MM_SUBJECT.dspc, note: notes.dspcYes, email: loc.yes, tag: "DSPC return kit" },
+  ].forEach(s => {
     const col = el("div", "col");
-    col.appendChild(el("div", "colhead", `<span>${esc(s.head)}</span><span class="pill ${s.pill[0]}">${esc(s.pill[1])}</span>`));
-    col.appendChild(card({ title: "Subject", kind: "subject", text: s.subject }));
-    col.appendChild(card({ title: "Note", kind: "note", text: s.note }));
-    col.appendChild(card({ title: "Email", kind: "email", rich: true, text: s.email }));
+    col.appendChild(el("div", "colhead " + s.cat, `<span>${s.ico}</span><span>${esc(s.head)}</span>${pillsHtml([s.kit])}`));
+    col.appendChild(card({ title: "Subject", ico: "🏷️", cat: "c-subj", kind: "subject", text: s.subject, label: s.tag + " subject" }));
+    col.appendChild(card({ title: "Note", ico: "📝", cat: s.cat, kind: "note", text: s.note, label: s.tag + " note" }));
+    col.appendChild(card({ title: "Email", ico: "✉️", cat: "c-mail", kind: "email", rich: true, text: s.email, label: s.tag + " email · " + loc.id }));
     cols.appendChild(col);
   });
   root.appendChild(cols);
 
-  root.appendChild(section("AI prompts"));
-  root.appendChild(grid([
-    { title: "Province prompt", text: MM_PROMPT_PROVINCE },
-    { title: "DSPC prompt", text: MM_PROMPT_DSPC },
-  ], { kind: "prompt" }));
+  root.appendChild(section("🤖", "AI prompts"));
+  root.appendChild(group("grid2", [
+    { title: "Province prompt", ico: "📍", text: MM_PROMPT_PROVINCE },
+    { title: "DSPC prompt", ico: "⚠️", text: MM_PROMPT_DSPC },
+  ], { kind: "prompt", cat: "c-ai" }));
 }
 
 function viewFrance(root) {
-  root.appendChild(section("Subjects"));
-  root.appendChild(grid(FR_SUBJECTS, { kind: "subject" }));
-  root.appendChild(section("Notes · replacement"));
-  root.appendChild(grid(FR_REPLACE));
-  root.appendChild(section("Notes · no replacement"));
-  root.appendChild(grid(FR_NOREPLACE));
-  root.appendChild(section("AI prompts"));
-  root.appendChild(grid([
-    { title: "DSPC prompt", text: FR_PROMPT_DSPC },
-    { title: "Address prompt", text: FR_PROMPT_ADDRESS },
-  ], { kind: "prompt" }));
+  root.appendChild(section("⭐", "Most used"));
+  root.appendChild(group("stack", FR_PRIORITY));
+  root.appendChild(section("🚫", "No replacement", FR_NO_SUBJECTS.length + FR_NO.length));
+  root.appendChild(sub("🏷️", "Subjects"));
+  root.appendChild(group("grid3", FR_NO_SUBJECTS));
+  root.appendChild(sub("📝", "Notes · most to least common"));
+  root.appendChild(group("grid2", FR_NO));
+  root.appendChild(section("🤖", "AI prompts"));
+  root.appendChild(group("grid2", [
+    { title: "DSPC prompt", ico: "⚠️", text: FR_PROMPT_DSPC },
+    { title: "Address prompt", ico: "📍", text: FR_PROMPT_ADDRESS },
+  ], { kind: "prompt", cat: "c-ai" }));
 }
 
 function viewSpain(root) {
-  root.appendChild(section("Notes · replacement"));
-  root.appendChild(grid(ES_REPLACE));
-  root.appendChild(section("Notes · no replacement"));
-  root.appendChild(grid(ES_NOREPLACE));
-  root.appendChild(section("Email"));
-  root.appendChild(grid([{ title: "Hospital", kind: "email", rich: true, text: ES_EMAIL_HOSPITAL }]));
-  root.appendChild(section("AI prompts"));
-  root.appendChild(grid([
-    { title: "Address prompt", text: ES_PROMPT_ADDRESS },
-    { title: "DSPC / Read prompt", text: ES_PROMPT_TSG },
-  ], { kind: "prompt" }));
+  root.appendChild(section("⭐", "Most used"));
+  root.appendChild(group("stack", ES_PRIORITY));
+  root.appendChild(section("🚫", "No replacement", ES_NO.length));
+  root.appendChild(group("grid2", ES_NO));
+  root.appendChild(section("✉️", "Email"));
+  root.appendChild(group("grid2", [{ title: "Hospital", ico: "🏥", cat: "c-mail", kind: "email", rich: true, text: ES_EMAIL_HOSPITAL, label: "Hospital email" }]));
+  root.appendChild(section("🤖", "AI prompts"));
+  root.appendChild(group("grid2", [
+    { title: "Address prompt", ico: "📍", text: ES_PROMPT_ADDRESS },
+    { title: "DSPC / Read prompt", ico: "⚠️", text: ES_PROMPT_TSG },
+  ], { kind: "prompt", cat: "c-ai" }));
 }
 
 function viewEmpty(root, tab) {
-  root.appendChild(el("div", "empty-state", flag(tab.flag) + `<b>${esc(tab.label)}</b>No templates added yet.`));
+  root.appendChild(el("div", "empty-state", `<span class="big">🗂️</span><b>${flag(tab.flag)} ${esc(tab.label)}</b>No templates added yet.`));
 }
-
 const VIEWS = { minimed: viewMiniMed, fr: viewFrance, es: viewSpain };
 
+/* ================= search ================= */
+function applySearch() {
+  const q = state.q.trim().toLowerCase();
+  const root = document.getElementById("view");
+  root.querySelector(".nores")?.remove();
+  const cards = [...root.querySelectorAll(".card")];
+  if (!cards.length) return;
+  let shown = 0;
+  cards.forEach(c => {
+    const hit = !q || q.split(/\s+/).every(w => c.dataset.search.includes(w));
+    c.hidden = !hit;
+    if (hit) shown++;
+  });
+  root.querySelectorAll(".stack,.grid2,.grid3,.col").forEach(g => {
+    g.hidden = q !== "" && ![...g.querySelectorAll(".card")].some(c => !c.hidden);
+  });
+  root.querySelectorAll(".sec,.sub").forEach(h => {
+    let n = h.nextElementSibling, any = false;
+    while (n && !n.matches(".sec") && !(h.matches(".sub") && n.matches(".sub"))) {
+      if (n.matches(".chips,.current")) any = true;
+      if (n.querySelector && [...n.querySelectorAll(".card")].some(c => !c.hidden)) any = true;
+      if (n.matches(".card") && !n.hidden) any = true;
+      n = n.nextElementSibling;
+    }
+    h.hidden = q !== "" && !any;
+  });
+  if (q && !shown) root.appendChild(el("div", "nores", `<span class="big">🤷</span><b>No templates match “${esc(state.q.trim())}”</b>Press Esc to clear the search.`));
+}
+
+/* ================= render ================= */
 function renderTabs() {
   const nav = document.getElementById("tabs");
   nav.innerHTML = "";
   TABS.forEach(t => {
     const b = el("button", "tab" + (t.cls ? " " + t.cls : "") + (t.empty ? " empty" : ""),
-      (t.flag ? flag(t.flag) : "") + `<span>${esc(t.label)}</span>` + (t.empty ? `<span class="soon">soon</span>` : ""));
+      (t.flag ? flag(t.flag) : "🩵") + `<span>${esc(t.label)}</span>` + (t.empty ? `<span class="soon">soon</span>` : `<kbd>${t.key}</kbd>`));
     b.type = "button";
     b.setAttribute("role", "tab");
     b.dataset.tab = t.id;
     b.setAttribute("aria-selected", String(t.id === state.tab));
-    b.addEventListener("click", () => { state.tab = t.id; store.set("tab", t.id); render(); window.scrollTo(0, 0); });
+    b.addEventListener("click", () => go(t.id));
     nav.appendChild(b);
   });
 }
-
+function go(id) { state.tab = id; store.set("tab", id); render(); window.scrollTo(0, 0); }
 function render() {
   renderTabs();
   const root = document.getElementById("view");
   root.innerHTML = "";
   const tab = TABS.find(t => t.id === state.tab);
   if (VIEWS[tab.id]) VIEWS[tab.id](root); else viewEmpty(root, tab);
+  root.appendChild(el("div", "hint", `Click any card to copy it · <kbd>1</kbd>–<kbd>3</kbd> switch tabs · <kbd>/</kbd> search · <kbd>Esc</kbd> clear`));
   document.title = tab.label + " · Case Templates";
+  applySearch();
 }
 
+const q = document.getElementById("q");
+q.addEventListener("input", () => { state.q = q.value; applySearch(); });
+document.addEventListener("keydown", e => {
+  const typing = e.target.matches("input,textarea,[contenteditable]");
+  if (e.key === "Escape") { q.value = ""; state.q = ""; applySearch(); if (typing) q.blur(); return; }
+  if (typing || e.ctrlKey || e.metaKey || e.altKey) return;
+  if (e.key === "/") { e.preventDefault(); q.focus(); return; }
+  const t = TABS.find(x => x.key === e.key);
+  if (t) { e.preventDefault(); go(t.id); }
+});
+
 render();
+}
 </script>
 </body>
 </html>
