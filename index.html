@@ -11,10 +11,10 @@
 <style>
 /* VOICE work tool for a fast-paced case agent: scan, click, paste
    IDEA a colour-tabbed agent binder: every case type has its own colour and emoji
-   PICTURE the template cards themselves, colour-coded by case type
+   PICTURE the template cards themselves, colour-coded by case type, dense like a cheat sheet
    COLOUR white ground, near-black ink; teal insertion, amber DSPC, pink read, violet multi, slate no-replacement, blue email
-   TYPE Inter (fallback Segoe UI): bold 15-20px titles, 12.5px note text, Arial 14 emails
-   LAYOUT sticky bar with tabs + search; MiniMed in 3 scenario columns; GSE as a priority stack then a 2-column grid */
+   TYPE Inter (fallback Segoe UI): bold 14-17px titles, 12px note text, Arial 14 emails
+   LAYOUT sticky bar; up to 3 cards per row on wide screens, 2 on medium, 1 on phones */
 :root{color-scheme:light;
   --bg:#ffffff;--ink:#14161b;--muted:#646b7a;--line:#e5e7ec;--soft:#f5f6f8;
   --ok:#15803d;--ok-t:#e9f8ef;--bad:#c2261d;--bad-t:#fdecea;
@@ -22,7 +22,7 @@
 :root[data-theme=dark],:root[data-theme=light]{color-scheme:light}
 *{box-sizing:border-box;min-width:0}
 html,body{margin:0;background:var(--bg);color:var(--ink)}
-body{font:13px/1.45 Inter,"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
+body{font:12.5px/1.42 Inter,"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
 button,input{font:inherit;color:inherit}
 button{cursor:pointer}
 
@@ -38,101 +38,107 @@ button{cursor:pointer}
 
 /* top bar */
 .top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.bar{max-width:1280px;margin:0 auto;padding:10px max(20px,2vw);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.brand{font-weight:800;font-size:16px;letter-spacing:-.01em;white-space:nowrap;display:flex;align-items:center;gap:7px}
+.bar{max-width:1360px;margin:0 auto;padding:7px max(16px,2vw);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .tabs{display:flex;gap:6px;flex-wrap:wrap}
-.tab{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 15px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-weight:700;font-size:14px;color:#3b404c}
+.tab{display:inline-flex;align-items:center;gap:7px;min-height:34px;padding:0 12px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-weight:700;font-size:13px;color:#3b404c}
 .tab:hover{border-color:#c8ccd5;background:var(--soft)}
 .tab[aria-selected=true]{background:var(--ink);border-color:var(--ink);color:#fff}
 .tab.mm{color:var(--mm);border-color:#c7d5fb;background:var(--mm-t)}
 .tab.mm:hover{border-color:var(--mm)}
 .tab.mm[aria-selected=true]{background:var(--mm);border-color:var(--mm);color:#fff}
-.tab.empty{opacity:.5;font-weight:600}
-.tab .soon{font-size:11px;font-weight:600}
 .tab kbd{font:600 10px/1 Inter,system-ui,sans-serif;padding:3px 5px;border-radius:4px;background:rgba(0,0,0,.07);color:inherit;opacity:.75}
 .tab[aria-selected=true] kbd{background:rgba(255,255,255,.2)}
-.tools{margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tools{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .search{position:relative;display:flex;align-items:center}
-.search span{position:absolute;left:11px;font-size:14px;pointer-events:none}
-.search input{width:200px;height:40px;border-radius:10px;border:1.5px solid var(--line);padding:0 34px 0 34px;font-size:14px;background:#fff}
+.search span{position:absolute;left:10px;font-size:13px;pointer-events:none}
+.search input{width:200px;height:34px;border-radius:9px;border:1.5px solid var(--line);padding:0 30px 0 31px;font-size:13px;background:#fff}
 .search input:focus{outline:none;border-color:var(--mm);box-shadow:0 0 0 3px var(--mm-t)}
-.search kbd{position:absolute;right:9px;font:600 11px/1 Inter,system-ui,sans-serif;padding:3px 6px;border:1px solid var(--line);border-radius:5px;color:var(--muted);background:#fff;pointer-events:none}
-.last{display:flex;align-items:center;gap:6px;height:40px;padding:0 12px;border-radius:10px;background:var(--soft);font-size:12px;color:var(--muted);white-space:nowrap;max-width:250px}
+.search kbd{position:absolute;right:8px;font:600 10px/1 Inter,system-ui,sans-serif;padding:3px 5px;border:1px solid var(--line);border-radius:5px;color:var(--muted);background:#fff;pointer-events:none}
+.last{display:flex;align-items:center;gap:5px;height:34px;padding:0 11px;border-radius:9px;background:var(--soft);font-size:11.5px;color:var(--muted);white-space:nowrap;max-width:270px}
 .last b{color:var(--ink);font-weight:700;overflow:hidden;text-overflow:ellipsis}
 .last.fresh{background:var(--ok-t);color:var(--ok)}
 .last.fresh b{color:var(--ok)}
 
 /* flags */
-.flag{display:inline-block;width:21px;height:14px;flex:none;border-radius:2px;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
+.flag{display:inline-block;width:20px;height:13px;flex:none;border-radius:2px;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
 .flag svg{display:block;width:100%;height:100%}
 
 /* layout */
-main{max-width:1280px;margin:0 auto;padding:6px max(20px,2vw) 70px}
-.sec{display:flex;align-items:center;gap:10px;margin:30px 0 12px;font-size:20px;font-weight:800;letter-spacing:-.015em}
-.sec .count{font-size:12px;font-weight:700;color:var(--muted);background:var(--soft);padding:3px 9px;border-radius:999px}
-.sub{margin:18px 0 9px;font-size:14px;font-weight:800;color:#3b404c;display:flex;align-items:center;gap:7px}
-.stack{display:grid;gap:12px}
-.grid2{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
-.grid3{display:grid;gap:12px;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start}
-.cols{display:grid;gap:16px;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start}
-.col{display:grid;gap:10px}
-.colhead{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 14px;border-radius:12px;background:var(--t);color:var(--c);font-weight:800;font-size:17px;letter-spacing:-.01em;border:1.5px solid var(--b)}
-.colhead .pill{font-size:12px}
-@media(max-width:1000px){.cols,.grid3{grid-template-columns:minmax(0,1fr)}}
-@media(max-width:720px){.top{position:static}.grid2{grid-template-columns:minmax(0,1fr)}.search input{width:100%}.search{flex:1}.tools{width:100%;margin-left:0}.last{display:none}}
+main{max-width:1360px;margin:0 auto;padding:2px max(16px,2vw) 36px}
+.sec{display:flex;align-items:center;gap:8px;margin:18px 0 8px;font-size:17px;font-weight:800;letter-spacing:-.015em}
+.sec .count{font-size:11px;font-weight:700;color:var(--muted);background:var(--soft);padding:2px 8px;border-radius:999px}
+.g3{display:grid;gap:10px;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start}
+.wide{grid-column:1/-1}
+.cols{display:grid;gap:12px;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start}
+.col{display:grid;gap:8px}
+.colhead{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:7px 11px;border-radius:10px;background:var(--t);color:var(--c);font-weight:800;font-size:15px;letter-spacing:-.01em;border:1.5px solid var(--b)}
+@media(max-width:1020px){.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:800px){.cols{grid-template-columns:minmax(0,1fr)}}
+@media(min-width:681px){.card .chead{flex-wrap:nowrap}}
+@media(max-width:680px){.g3{grid-template-columns:minmax(0,1fr)}.top{position:static}.search{flex:1}.search input{width:100%}.tools{width:100%;margin-left:0}.last{display:none}}
 
 /* country chips */
-.chips{display:flex;flex-wrap:wrap;gap:7px}
-.chip{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:0 12px;border-radius:10px;border:1.5px solid var(--line);background:#fff;font-weight:600}
-.chip small{color:var(--muted);font-size:12px;font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:7px;min-height:32px;padding:0 10px;border-radius:9px;border:1.5px solid var(--line);background:#fff;font-weight:600}
+.chip small{color:var(--muted);font-size:11px;font-weight:500}
 .chip:hover{border-color:#c8ccd5;background:var(--soft)}
 .chip[aria-pressed=true]{border-color:var(--mm);background:var(--mm-t);color:var(--mm)}
 .chip[aria-pressed=true] small{color:var(--mm)}
-.current{display:flex;align-items:center;gap:10px;margin:20px 0 14px;font-size:24px;font-weight:800;letter-spacing:-.02em}
-.current .flag{width:33px;height:22px}
-.current small{font-size:14px;font-weight:600;color:var(--muted);letter-spacing:0}
+.current{display:flex;align-items:center;gap:9px;margin:12px 0 9px;font-size:19px;font-weight:800;letter-spacing:-.02em}
+.current .flag{width:28px;height:19px}
+.current small{font-size:12.5px;font-weight:600;color:var(--muted);letter-spacing:0}
 
 /* cards */
-.card{border:1.5px solid var(--b);border-radius:12px;background:#fff;overflow:hidden;transition:border-color .12s,box-shadow .12s,transform .12s}
+.card{position:relative;border:1.5px solid var(--b);border-radius:10px;background:#fff;overflow:hidden;transition:border-color .12s,box-shadow .12s}
 .card.click{cursor:pointer}
-.card.click:hover{border-color:var(--c);box-shadow:0 3px 14px rgba(20,22,30,.08)}
-.card.click:active{transform:scale(.995)}
+.card.click:hover{border-color:var(--c);box-shadow:0 2px 10px rgba(20,22,30,.08)}
 .card.copied{border-color:var(--ok);box-shadow:0 0 0 3px var(--ok-t)}
-.chead{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;background:var(--t)}
-.ico{font-size:18px;line-height:1}
-.ctitle{margin:0;font-size:15px;font-weight:800;color:var(--c);letter-spacing:-.01em}
-.pill{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;white-space:nowrap;background:#fff;border:1px solid var(--line);color:#3b404c}
+.chead{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:6px 9px;background:var(--t)}
+.ico{font-size:15px;line-height:1}
+.pill,.copybtn,.ico{flex:none}
+.ctitle{margin:0;min-width:min-content;flex:0 1 auto;font-size:14px;font-weight:800;color:var(--c);letter-spacing:-.01em}
+.pill{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:999px;white-space:nowrap;background:#fff;border:1px solid var(--line);color:#3b404c}
 .pill.yes{color:var(--ok);border-color:#bfe6cc;background:var(--ok-t)}
 .pill.no{color:var(--bad);border-color:#f5c6c2;background:var(--bad-t)}
 .pill.kit{color:#1d4ed8;border-color:#c7d5fb;background:#eef3ff}
-.copybtn{margin-left:auto;display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;padding:5px 11px;border-radius:8px;background:#fff;border:1.5px solid var(--b);color:var(--c);white-space:nowrap}
+.copybtn{margin-left:auto;display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:7px;background:#fff;border:1.5px solid var(--b);color:var(--c);white-space:nowrap}
 .card.click:hover .copybtn{background:var(--c);border-color:var(--c);color:#fff}
 .card.copied .copybtn,.card.copied:hover .copybtn{background:var(--ok);border-color:var(--ok);color:#fff}
-.body{margin:0;padding:10px 13px 12px;font:12.5px/1.5 Inter,"Segoe UI",system-ui,sans-serif;white-space:pre-wrap;overflow-wrap:anywhere;color:#2b2f38}
-.card.subject .body{font-weight:700;color:var(--ink);font-size:13px}
-.card.email .body{font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#111}
-.card.prompt .body{max-height:88px;overflow:hidden;color:var(--muted);font-size:12px;-webkit-mask-image:linear-gradient(#000 50%,transparent);mask-image:linear-gradient(#000 50%,transparent)}
+.body{padding:6px 10px 8px;font-size:12px;line-height:1.42;color:#2b2f38;overflow-wrap:anywhere}
+.body .gap{height:5px}
+.card.email .body{font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.4;color:#111}
+.card.email .body .gap{height:9px}
+.card.prompt .body{max-height:52px;overflow:hidden;color:var(--muted);font-size:11.5px;-webkit-mask-image:linear-gradient(#000 40%,transparent);mask-image:linear-gradient(#000 40%,transparent)}
 .card.prompt.open .body{max-height:none;-webkit-mask-image:none;mask-image:none;color:#2b2f38}
-.more{display:block;margin:0 13px 11px;padding:0;border:0;background:none;font-size:12px;font-weight:700;color:var(--mm)}
+.more{display:block;margin:0 10px 7px;padding:0;border:0;background:none;font-size:11.5px;font-weight:700;color:var(--mm)}
 .more:hover{text-decoration:underline}
+.raw{position:absolute;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;white-space:pre}
+
+/* compact subject card: one line */
+.card.subject .chead{padding:6px 9px;flex-wrap:nowrap}
+.card.subject .ctitle{font-size:11.5px;opacity:.85}
+.card.subject .subj{font-weight:800;font-size:12.5px;color:var(--ink);overflow-wrap:anywhere}
 
 /* variant buttons */
-.variants{display:flex;flex-wrap:wrap;gap:7px;padding:11px 12px 2px}
-.vbtn{min-height:38px;padding:0 13px;border-radius:9px;border:1.5px solid var(--b);background:#fff;color:var(--c);font-size:13px;font-weight:800;transition:background .1s,color .1s}
+.vwrap{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:7px 9px 8px}
+.variants{display:flex;flex-wrap:wrap;gap:5px}
+.vbtn{min-height:30px;padding:0 10px;border-radius:8px;border:1.5px solid var(--b);background:#fff;color:var(--c);font-size:12px;font-weight:800;transition:background .1s,color .1s}
 .vbtn:hover{background:var(--c);border-color:var(--c);color:#fff}
+.vbtn.nv{color:var(--bad);border-color:#f2b8b3;background:var(--bad-t)}
+.vbtn.nv:hover{background:var(--bad);border-color:var(--bad);color:#fff}
 .vbtn.copied,.vbtn.copied:hover{background:var(--ok);border-color:var(--ok);color:#fff}
-.preview{display:block;padding:9px 13px 12px;color:var(--muted);font-size:12px}
-.preview pre{margin:4px 0 0;font:700 13px/1.45 Inter,"Segoe UI",system-ui,sans-serif;color:var(--ink);white-space:pre-wrap;overflow-wrap:anywhere}
+.preview{flex:1 1 220px;color:var(--muted);font-size:11px}
+.preview div{white-space:pre-line;font-weight:700;font-size:12.5px;color:var(--ink);overflow-wrap:anywhere}
 
 .tab:focus-visible,.chip:focus-visible,.card:focus-visible,.vbtn:focus-visible,.more:focus-visible{outline:3px solid var(--mm);outline-offset:2px}
 [hidden]{display:none!important}
-.empty-state,.nores{margin:70px auto;text-align:center;color:var(--muted);font-size:14px}
-.empty-state .big,.nores .big{display:block;font-size:40px;margin-bottom:8px}
-.empty-state b,.nores b{display:block;color:var(--ink);font-size:18px;margin-bottom:4px}
-.hint{margin-top:40px;color:var(--muted);font-size:12px;text-align:center}
-.hint kbd{font:600 11px/1 Inter,system-ui,sans-serif;padding:2px 6px;border:1px solid var(--line);border-radius:5px;background:var(--soft)}
+.nores{margin:50px auto;text-align:center;color:var(--muted);font-size:13px}
+.nores .big{display:block;font-size:34px;margin-bottom:6px}
+.nores b{display:block;color:var(--ink);font-size:16px;margin-bottom:3px}
+.hint{margin-top:24px;color:var(--muted);font-size:11.5px;text-align:center}
+.hint kbd{font:600 10px/1 Inter,system-ui,sans-serif;padding:2px 5px;border:1px solid var(--line);border-radius:4px;background:var(--soft)}
 
-#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);background:#14161b;color:#fff;padding:10px 16px;border-radius:10px;font-size:13px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .15s,transform .15s;max-width:90vw;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+#toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,14px);background:#14161b;color:#fff;padding:9px 15px;border-radius:9px;font-size:12.5px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .15s,transform .15s;max-width:90vw;box-shadow:0 8px 24px rgba(0,0,0,.18)}
 #toast.show{opacity:1;transform:translate(-50%,0)}
 #toast.err{background:var(--bad)}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -880,18 +886,24 @@ const byTitle = (arr, t) => {
   return f;
 };
 
-// France: most used first, then the rest from most to least common
-const FR_PRIORITY = [
-  Object.assign({}, FR_SUBJECTS[0], { title: "Insertion · Replacement N°", ico: "🏷️", cat: "c-subj", kind: "subject", pills: [P.replace] }),
+// France: most used first
+const FR_TOP_SUBJECTS = {
+  title: "Insertion · Replacement N°", ico: "🏷️", cat: "c-subj", wide: true,
+  variants: FR_SUBJECTS[0].variants.concat([{ label: "🚫 PAS DE REMPLACEMENT", text: FR_SUBJECTS[2].text, nv: true }]),
+};
+const FR_PRIORITY_NOTES = [
   Object.assign({}, byTitle(FR_REPLACE, "Insertion"), { ico: "🩹", cat: "c-ins", pills: [P.replace, P.noKit] }),
   Object.assign({}, byTitle(FR_REPLACE, "DSPC"), { ico: "⚠️", cat: "c-dspc", pills: [P.replace, P.kit] }),
   Object.assign({}, byTitle(FR_REPLACE, "Multi-sensor"), { ico: "🧩", cat: "c-multi", pills: [P.replace, P.kit] }),
 ];
-const FR_NO_SUBJECTS = [
-  Object.assign({}, FR_SUBJECTS[2], { title: "Insertion · no replacement", ico: "🏷️" }),
-  Object.assign({}, FR_SUBJECTS[3], { title: "DSPC · no replacement", ico: "🏷️" }),
-  Object.assign({}, FR_SUBJECTS[1], { title: "Insertion · quota exceeded", ico: "🏷️" }),
-].map(s => Object.assign(s, { cat: "c-subj", kind: "subject", pills: [] }));
+// remaining no-replacement subjects, together in one card
+const FR_NO_SUBJECTS = {
+  title: "No-replacement subjects", ico: "🏷️", cat: "c-subj",
+  variants: [
+    { label: "DSPC · PAS DE REMPLACEMENT", text: FR_SUBJECTS[3].text, nv: true },
+    { label: "INSERTION · QUOTA DEPASSE", text: FR_SUBJECTS[1].text, nv: true },
+  ],
+};
 const FR_NO_ORDER = [
   ["Already replaced", "🔁"], ["Incomplete address", "🏠"], ["Invalid SN", "🔢"], ["Same SN twice", "👯"],
   ["Quota reached", "🛑"], ["Scan again in X minutes (TSG)", "⏱️"], ["Incompatible sensor (TSG)", "🔌"],
@@ -984,8 +996,9 @@ function copied(label) {
   clearTimeout(lastTimer);
   lastTimer = setTimeout(() => last.classList.remove("fresh"), 2500);
 }
-function selectForManualCopy(pre) {
-  const r = document.createRange(); r.selectNodeContents(pre);
+// last resort if the browser blocks copying: select the exact text so Ctrl+C works
+function selectForManualCopy(node) {
+  const r = document.createRange(); r.selectNodeContents(node);
   const s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
   toast("⚠️ Copy was blocked. The text is selected: press Ctrl+C.", true);
 }
@@ -1003,34 +1016,45 @@ function pillsHtml(pills) {
 function section(ico, title, count) {
   return el("h2", "sec", `<span>${ico}</span><span>${esc(title)}</span>` + (count ? `<span class="count">${count}</span>` : ""));
 }
-function sub(ico, title) { return el("h3", "sub", `<span>${ico}</span><span>${esc(title)}</span>`); }
+// On screen, each blank line shows as a small gap so cards stay short; the copied text keeps the real blank lines.
+function bodyEl(text) {
+  const d = el("div", "body");
+  text.split("\n").forEach(line => {
+    if (line === "") d.appendChild(el("div", "gap"));
+    else { const l = el("div", "ln"); l.textContent = line; d.appendChild(l); }
+  });
+  return d;
+}
+function rawEl(text) { const r = el("pre", "raw"); r.textContent = text; r.setAttribute("aria-hidden", "true"); return r; }
 
-/* card: { title, ico, cat, kind, pills, text | variants, rich, label } */
+/* card: { title, ico, cat, kind, pills, text | variants, rich, label, wide } */
 function card(o) {
   const kind = o.kind || "note";
-  const c = el("div", `card ${kind} ${o.cat || "c-no"}`);
+  const c = el("div", `card ${kind} ${o.cat || "c-no"}` + (o.wide ? " wide" : ""));
   c.dataset.search = (o.title + " " + (o.text || (o.variants || []).map(v => v.label + " " + v.text).join(" "))).toLowerCase();
   const head = el("div", "chead", `<span class="ico">${o.ico || "📄"}</span><h3 class="ctitle">${esc(o.title)}</h3>${pillsHtml(o.pills)}`);
   c.appendChild(head);
   const label = o.label || o.title;
 
   if (o.variants) {
+    const wrap = el("div", "vwrap");
     const row = el("div", "variants");
-    const prev = el("div", "preview", "Click a button to copy it:");
-    const pre = el("pre");
-    pre.textContent = o.variants[0].text;
-    prev.appendChild(pre);
+    const prev = el("div", "preview", "Hover to preview · click to copy");
+    const pv = el("div");
+    const show = t => { pv.textContent = t.replace(/\n\n/g, "\n"); };
+    show(o.variants[0].text);
+    prev.appendChild(pv);
     o.variants.forEach(v => {
-      const b = el("button", "vbtn", esc(v.label));
+      const b = el("button", "vbtn" + (v.nv ? " nv" : ""), esc(v.label));
       b.type = "button";
       b.dataset.copy = v.text;
       b.title = v.text;
-      b.addEventListener("mouseenter", () => { pre.textContent = v.text; });
-      b.addEventListener("focus", () => { pre.textContent = v.text; });
+      b.addEventListener("mouseenter", () => show(v.text));
+      b.addEventListener("focus", () => show(v.text));
       b.addEventListener("click", () => {
-        pre.textContent = v.text;
+        show(v.text);
         copyNow(v.text, o.rich ? emailHtml(v.text) : null).then(ok => {
-          if (!ok) return selectForManualCopy(pre);
+          if (!ok) return selectForManualCopy(pv);
           b.classList.add("copied");
           clearTimeout(b._t);
           b._t = setTimeout(() => b.classList.remove("copied"), 1200);
@@ -1039,23 +1063,30 @@ function card(o) {
       });
       row.appendChild(b);
     });
-    c.appendChild(row);
-    c.appendChild(prev);
+    wrap.appendChild(row);
+    wrap.appendChild(prev);
+    c.appendChild(wrap);
     return c;
   }
 
   const btn = el("span", "copybtn", "📋 Copy");
-  head.appendChild(btn);
-  const pre = el("pre", "body");
-  pre.textContent = o.text;
-  c.appendChild(pre);
+  const raw = rawEl(o.text);
+  if (kind === "subject") {
+    const s = el("span", "subj"); s.textContent = o.text;
+    head.appendChild(s);
+    head.appendChild(btn);
+  } else {
+    head.appendChild(btn);
+    c.appendChild(bodyEl(o.text));
+  }
+  c.appendChild(raw);
   c.classList.add("click");
   c.tabIndex = 0;
   c.setAttribute("role", "button");
   c.setAttribute("aria-label", "Copy " + label);
   c.dataset.copy = o.text;
   const doCopy = () => copyNow(o.text, o.rich ? emailHtml(o.text) : null).then(ok => {
-    if (!ok) return selectForManualCopy(pre);
+    if (!ok) return selectForManualCopy(raw);
     c.classList.add("copied");
     btn.textContent = "✅ Copied";
     clearTimeout(c._t);
@@ -1078,16 +1109,16 @@ function card(o) {
   }
   return c;
 }
-function group(cls, items, defaults) {
-  const g = el("div", cls);
+function grid(items, defaults) {
+  const g = el("div", "g3");
   items.forEach(it => g.appendChild(card(Object.assign({}, defaults || {}, it))));
   return g;
 }
 
 /* ================= views ================= */
 function viewMiniMed(root) {
-  root.appendChild(section("🌍", "Country"));
   const chips = el("div", "chips");
+  chips.style.marginTop = "12px";
   MM.forEach(l => {
     const multi = MM.filter(x => x.country === l.country).length > 1;
     const b = el("button", "chip", flag(l.flag) + `<span>${esc(l.country)}</span>` + (multi ? `<small>${esc(l.lang)}</small>` : ""));
@@ -1119,7 +1150,7 @@ function viewMiniMed(root) {
   root.appendChild(cols);
 
   root.appendChild(section("🤖", "AI prompts"));
-  root.appendChild(group("grid2", [
+  root.appendChild(grid([
     { title: "Province prompt", ico: "📍", text: MM_PROMPT_PROVINCE },
     { title: "DSPC prompt", ico: "⚠️", text: MM_PROMPT_DSPC },
   ], { kind: "prompt", cat: "c-ai" }));
@@ -1127,14 +1158,11 @@ function viewMiniMed(root) {
 
 function viewFrance(root) {
   root.appendChild(section("⭐", "Most used"));
-  root.appendChild(group("stack", FR_PRIORITY));
-  root.appendChild(section("🚫", "No replacement", FR_NO_SUBJECTS.length + FR_NO.length));
-  root.appendChild(sub("🏷️", "Subjects"));
-  root.appendChild(group("grid3", FR_NO_SUBJECTS));
-  root.appendChild(sub("📝", "Notes · most to least common"));
-  root.appendChild(group("grid2", FR_NO));
+  root.appendChild(grid([FR_TOP_SUBJECTS].concat(FR_PRIORITY_NOTES)));
+  root.appendChild(section("🚫", "No replacement · most to least common", FR_NO.length));
+  root.appendChild(grid([FR_NO_SUBJECTS].concat(FR_NO)));
   root.appendChild(section("🤖", "AI prompts"));
-  root.appendChild(group("grid2", [
+  root.appendChild(grid([
     { title: "DSPC prompt", ico: "⚠️", text: FR_PROMPT_DSPC },
     { title: "Address prompt", ico: "📍", text: FR_PROMPT_ADDRESS },
   ], { kind: "prompt", cat: "c-ai" }));
@@ -1142,20 +1170,15 @@ function viewFrance(root) {
 
 function viewSpain(root) {
   root.appendChild(section("⭐", "Most used"));
-  root.appendChild(group("stack", ES_PRIORITY));
-  root.appendChild(section("🚫", "No replacement", ES_NO.length));
-  root.appendChild(group("grid2", ES_NO));
-  root.appendChild(section("✉️", "Email"));
-  root.appendChild(group("grid2", [{ title: "Hospital", ico: "🏥", cat: "c-mail", kind: "email", rich: true, text: ES_EMAIL_HOSPITAL, label: "Hospital email" }]));
-  root.appendChild(section("🤖", "AI prompts"));
-  root.appendChild(group("grid2", [
-    { title: "Address prompt", ico: "📍", text: ES_PROMPT_ADDRESS },
-    { title: "DSPC / Read prompt", ico: "⚠️", text: ES_PROMPT_TSG },
-  ], { kind: "prompt", cat: "c-ai" }));
-}
-
-function viewEmpty(root, tab) {
-  root.appendChild(el("div", "empty-state", `<span class="big">🗂️</span><b>${flag(tab.flag)} ${esc(tab.label)}</b>No templates added yet.`));
+  root.appendChild(grid(ES_PRIORITY));
+  root.appendChild(section("🚫", "No replacement · most to least common", ES_NO.length));
+  root.appendChild(grid(ES_NO));
+  root.appendChild(section("✉️", "Email & AI prompts"));
+  root.appendChild(grid([
+    { title: "Hospital email", ico: "🏥", cat: "c-mail", kind: "email", rich: true, text: ES_EMAIL_HOSPITAL },
+    { title: "Address prompt", ico: "📍", kind: "prompt", cat: "c-ai", text: ES_PROMPT_ADDRESS },
+    { title: "DSPC / Read prompt", ico: "⚠️", kind: "prompt", cat: "c-ai", text: ES_PROMPT_TSG },
+  ]));
 }
 const VIEWS = { minimed: viewMiniMed, fr: viewFrance, es: viewSpain };
 
@@ -1165,25 +1188,18 @@ function applySearch() {
   const root = document.getElementById("view");
   root.querySelector(".nores")?.remove();
   const cards = [...root.querySelectorAll(".card")];
-  if (!cards.length) return;
   let shown = 0;
   cards.forEach(c => {
     const hit = !q || q.split(/\s+/).every(w => c.dataset.search.includes(w));
     c.hidden = !hit;
     if (hit) shown++;
   });
-  root.querySelectorAll(".stack,.grid2,.grid3,.col").forEach(g => {
+  root.querySelectorAll(".g3,.col").forEach(g => {
     g.hidden = q !== "" && ![...g.querySelectorAll(".card")].some(c => !c.hidden);
   });
-  root.querySelectorAll(".sec,.sub").forEach(h => {
-    let n = h.nextElementSibling, any = false;
-    while (n && !n.matches(".sec") && !(h.matches(".sub") && n.matches(".sub"))) {
-      if (n.matches(".chips,.current")) any = true;
-      if (n.querySelector && [...n.querySelectorAll(".card")].some(c => !c.hidden)) any = true;
-      if (n.matches(".card") && !n.hidden) any = true;
-      n = n.nextElementSibling;
-    }
-    h.hidden = q !== "" && !any;
+  root.querySelectorAll(".sec").forEach(h => {
+    const n = h.nextElementSibling;
+    h.hidden = q !== "" && !(n && [...n.querySelectorAll(".card")].some(c => !c.hidden));
   });
   if (q && !shown) root.appendChild(el("div", "nores", `<span class="big">🤷</span><b>No templates match “${esc(state.q.trim())}”</b>Press Esc to clear the search.`));
 }
@@ -1193,8 +1209,8 @@ function renderTabs() {
   const nav = document.getElementById("tabs");
   nav.innerHTML = "";
   TABS.forEach(t => {
-    const b = el("button", "tab" + (t.cls ? " " + t.cls : "") + (t.empty ? " empty" : ""),
-      (t.flag ? flag(t.flag) : "🩵") + `<span>${esc(t.label)}</span>` + (t.empty ? `<span class="soon">soon</span>` : `<kbd>${t.key}</kbd>`));
+    const b = el("button", "tab" + (t.cls ? " " + t.cls : ""),
+      (t.flag ? flag(t.flag) : "🩵") + `<span>${esc(t.label)}</span><kbd>${t.key}</kbd>`);
     b.type = "button";
     b.setAttribute("role", "tab");
     b.dataset.tab = t.id;
@@ -1209,7 +1225,7 @@ function render() {
   const root = document.getElementById("view");
   root.innerHTML = "";
   const tab = TABS.find(t => t.id === state.tab);
-  if (VIEWS[tab.id]) VIEWS[tab.id](root); else viewEmpty(root, tab);
+  VIEWS[tab.id](root);
   root.appendChild(el("div", "hint", `Click any card to copy it · <kbd>1</kbd>–<kbd>3</kbd> switch tabs · <kbd>/</kbd> search · <kbd>Esc</kbd> clear`));
   document.title = tab.label + " · Case Templates";
   applySearch();
