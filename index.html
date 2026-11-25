@@ -9,52 +9,52 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* VOICE work tool for a fast-paced case agent: scan, click, paste
-   IDEA a colour-tabbed agent binder: every case type has its own colour and emoji
-   PICTURE the template cards themselves, colour-coded by case type, dense like a cheat sheet
-   COLOUR white ground, near-black ink; teal insertion, amber DSPC, pink read, violet multi, slate no-replacement, blue email
-   TYPE Inter (fallback Segoe UI): bold 14-17px titles, 12px note text, Arial 14 emails
+/* VOICE professional work tool for a case agent: scan, click, paste
+   IDEA a quiet reference sheet: one colour and one drawn icon per case type
+   PICTURE the template cards themselves, dense and aligned
+   COLOUR white ground, near-black ink; teal insertion, indigo DSPC, rose read, plum multi, slate no-replacement, blue email
+   TYPE Inter (fallback Segoe UI): bold titles, 12px note text, Arial 14 emails
    LAYOUT sticky bar; up to 3 cards per row on wide screens, 2 on medium, 1 on phones */
 :root{color-scheme:light;
-  --bg:#ffffff;--ink:#14161b;--muted:#646b7a;--line:#e5e7ec;--soft:#f5f6f8;
-  --ok:#15803d;--ok-t:#e9f8ef;--bad:#c2261d;--bad-t:#fdecea;
-  --mm:#1d4ed8;--mm-t:#eaf0ff}
+  --bg:#ffffff;--ink:#16181d;--muted:#667085;--line:#e4e7ec;--soft:#f5f6f8;
+  --ok:#15803d;--ok-t:#e9f7ee;--bad:#b42318;--bad-t:#fdeeec;
+  --mm:#1d4ed8;--mm-t:#eef3ff;--r:6px}
 :root[data-theme=dark],:root[data-theme=light]{color-scheme:light}
 *{box-sizing:border-box;min-width:0}
 html,body{margin:0;background:var(--bg);color:var(--ink)}
 body{font:12.5px/1.42 Inter,"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
 button,input{font:inherit;color:inherit}
 button{cursor:pointer}
+.i{width:15px;height:15px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;display:block}
 
-/* category colours */
-.c-ins{--c:#0f766e;--t:#e3f5f2;--b:#a7ddd5}
-.c-dspc{--c:#b45309;--t:#fff2df;--b:#f6cf98}
-.c-read{--c:#be185d;--t:#fde9f2;--b:#f5b5d0}
-.c-multi{--c:#6d28d9;--t:#f0eafe;--b:#cdb8f8}
-.c-no{--c:#475569;--t:#eef2f6;--b:#cbd3dd}
-.c-subj{--c:#3730a3;--t:#ecedff;--b:#c3c6f5}
-.c-mail{--c:#1d4ed8;--t:#e8f0fe;--b:#b9cdf8}
-.c-ai{--c:#52525b;--t:#f3f3f5;--b:#d6d6dc}
+/* category colours (no yellow, no orange) */
+.c-ins{--c:#0f766e;--t:#eef8f6;--b:#bfe3dd}
+.c-dspc{--c:#4338ca;--t:#f0f1fe;--b:#cfd2f7}
+.c-read{--c:#be123c;--t:#fdf0f3;--b:#f3c6d1}
+.c-multi{--c:#86198f;--t:#faf0fb;--b:#e6c5ea}
+.c-no{--c:#475569;--t:#f4f6f8;--b:#d5dbe3}
+.c-subj{--c:#3f3f46;--t:#f6f6f7;--b:#dcdce0}
+.c-mail{--c:#1d4ed8;--t:#eff4ff;--b:#c5d5fa}
 
 /* top bar */
 .top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .bar{max-width:1360px;margin:0 auto;padding:7px max(16px,2vw);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .tabs{display:flex;gap:6px;flex-wrap:wrap}
-.tab{display:inline-flex;align-items:center;gap:7px;min-height:34px;padding:0 12px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-weight:700;font-size:13px;color:#3b404c}
-.tab:hover{border-color:#c8ccd5;background:var(--soft)}
+.tab{display:inline-flex;align-items:center;gap:7px;min-height:34px;padding:0 12px;border-radius:var(--r);border:1px solid var(--line);background:#fff;font-weight:700;font-size:13px;color:#344054}
+.tab:hover{border-color:#c4c9d2;background:var(--soft)}
 .tab[aria-selected=true]{background:var(--ink);border-color:var(--ink);color:#fff}
-.tab.mm{color:var(--mm);border-color:#c7d5fb;background:var(--mm-t)}
-.tab.mm:hover{border-color:var(--mm)}
+.tab.mm{color:var(--mm)}
 .tab.mm[aria-selected=true]{background:var(--mm);border-color:var(--mm);color:#fff}
-.tab kbd{font:600 10px/1 Inter,system-ui,sans-serif;padding:3px 5px;border-radius:4px;background:rgba(0,0,0,.07);color:inherit;opacity:.75}
+.tab[aria-selected=true] .flag{box-shadow:0 0 0 1.5px rgba(255,255,255,.85)}
+.tab kbd{font:600 10px/1 Inter,system-ui,sans-serif;padding:3px 5px;border-radius:3px;background:rgba(0,0,0,.06);color:inherit;opacity:.75}
 .tab[aria-selected=true] kbd{background:rgba(255,255,255,.2)}
 .tools{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.search{position:relative;display:flex;align-items:center}
-.search span{position:absolute;left:10px;font-size:13px;pointer-events:none}
-.search input{width:200px;height:34px;border-radius:9px;border:1.5px solid var(--line);padding:0 30px 0 31px;font-size:13px;background:#fff}
+.search{position:relative;display:flex;align-items:center;color:var(--muted)}
+.search .i{position:absolute;left:10px;pointer-events:none}
+.search input{width:200px;height:34px;border-radius:var(--r);border:1px solid var(--line);padding:0 30px 0 32px;font-size:13px;background:#fff;color:var(--ink)}
 .search input:focus{outline:none;border-color:var(--mm);box-shadow:0 0 0 3px var(--mm-t)}
-.search kbd{position:absolute;right:8px;font:600 10px/1 Inter,system-ui,sans-serif;padding:3px 5px;border:1px solid var(--line);border-radius:5px;color:var(--muted);background:#fff;pointer-events:none}
-.last{display:flex;align-items:center;gap:5px;height:34px;padding:0 11px;border-radius:9px;background:var(--soft);font-size:11.5px;color:var(--muted);white-space:nowrap;max-width:270px}
+.search kbd{position:absolute;right:8px;font:600 10px/1 Inter,system-ui,sans-serif;padding:3px 5px;border:1px solid var(--line);border-radius:3px;color:var(--muted);background:#fff;pointer-events:none}
+.last{display:flex;align-items:center;gap:6px;height:34px;padding:0 11px;border-radius:var(--r);background:var(--soft);font-size:11.5px;color:var(--muted);white-space:nowrap;max-width:290px}
 .last b{color:var(--ink);font-weight:700;overflow:hidden;text-overflow:ellipsis}
 .last.fresh{background:var(--ok-t);color:var(--ok)}
 .last.fresh b{color:var(--ok)}
@@ -64,14 +64,17 @@ button{cursor:pointer}
 .flag svg{display:block;width:100%;height:100%}
 
 /* layout */
-main{max-width:1360px;margin:0 auto;padding:2px max(16px,2vw) 36px}
-.sec{display:flex;align-items:center;gap:8px;margin:18px 0 8px;font-size:17px;font-weight:800;letter-spacing:-.015em}
-.sec .count{font-size:11px;font-weight:700;color:var(--muted);background:var(--soft);padding:2px 8px;border-radius:999px}
+main{max-width:1360px;margin:0 auto;padding:12px max(16px,2vw) 36px}
+.sec{display:flex;align-items:center;gap:8px;margin:20px 0 8px;font-size:16px;font-weight:800;letter-spacing:-.01em;color:var(--ink)}
+.sec .i{width:17px;height:17px;color:var(--muted)}
+.sec .count{font-size:11px;font-weight:700;color:var(--muted);background:var(--soft);padding:2px 7px;border-radius:4px}
 .g3{display:grid;gap:10px;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start}
 .wide{grid-column:1/-1}
-.cols{display:grid;gap:12px;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start}
+.cols{display:grid;gap:14px;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start}
 .col{display:grid;gap:8px}
-.colhead{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:7px 11px;border-radius:10px;background:var(--t);color:var(--c);font-weight:800;font-size:15px;letter-spacing:-.01em;border:1.5px solid var(--b)}
+/* plain column titles: text only, clearly not a button */
+.coltitle{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:0;padding:0 0 5px;border-bottom:2px solid var(--c);color:var(--c);font-weight:800;font-size:16px;letter-spacing:-.01em;cursor:default}
+.coltitle .i{width:17px;height:17px}
 @media(max-width:1020px){.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:800px){.cols{grid-template-columns:minmax(0,1fr)}}
 @media(min-width:681px){.card .chead{flex-wrap:nowrap}}
@@ -79,66 +82,62 @@ main{max-width:1360px;margin:0 auto;padding:2px max(16px,2vw) 36px}
 
 /* country chips */
 .chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{display:inline-flex;align-items:center;gap:7px;min-height:32px;padding:0 10px;border-radius:9px;border:1.5px solid var(--line);background:#fff;font-weight:600}
+.chip{display:inline-flex;align-items:center;gap:7px;min-height:30px;padding:0 9px;border-radius:var(--r);border:1px solid var(--line);background:#fff;font-weight:600}
 .chip small{color:var(--muted);font-size:11px;font-weight:500}
-.chip:hover{border-color:#c8ccd5;background:var(--soft)}
-.chip[aria-pressed=true]{border-color:var(--mm);background:var(--mm-t);color:var(--mm)}
+.chip:hover{border-color:#c4c9d2;background:var(--soft)}
+.chip[aria-pressed=true]{border-color:var(--mm);background:var(--mm-t);color:var(--mm);box-shadow:inset 0 0 0 1px var(--mm)}
 .chip[aria-pressed=true] small{color:var(--mm)}
-.current{display:flex;align-items:center;gap:9px;margin:12px 0 9px;font-size:19px;font-weight:800;letter-spacing:-.02em}
+.current{display:flex;align-items:center;gap:9px;margin:12px 0 10px;font-size:19px;font-weight:800;letter-spacing:-.02em}
 .current .flag{width:28px;height:19px}
 .current small{font-size:12.5px;font-weight:600;color:var(--muted);letter-spacing:0}
 
 /* cards */
-.card{position:relative;border:1.5px solid var(--b);border-radius:10px;background:#fff;overflow:hidden;transition:border-color .12s,box-shadow .12s}
+.card{position:relative;border:1px solid var(--b);border-radius:var(--r);background:#fff;overflow:hidden;transition:border-color .12s,box-shadow .12s}
 .card.click{cursor:pointer}
-.card.click:hover{border-color:var(--c);box-shadow:0 2px 10px rgba(20,22,30,.08)}
-.card.copied{border-color:var(--ok);box-shadow:0 0 0 3px var(--ok-t)}
-.chead{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:6px 9px;background:var(--t)}
-.ico{font-size:15px;line-height:1}
-.pill,.copybtn,.ico{flex:none}
-.ctitle{margin:0;min-width:min-content;flex:0 1 auto;font-size:14px;font-weight:800;color:var(--c);letter-spacing:-.01em}
-.pill{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:999px;white-space:nowrap;background:#fff;border:1px solid var(--line);color:#3b404c}
-.pill.yes{color:var(--ok);border-color:#bfe6cc;background:var(--ok-t)}
-.pill.no{color:var(--bad);border-color:#f5c6c2;background:var(--bad-t)}
-.pill.kit{color:#1d4ed8;border-color:#c7d5fb;background:#eef3ff}
-.copybtn{margin-left:auto;display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:7px;background:#fff;border:1.5px solid var(--b);color:var(--c);white-space:nowrap}
+.card.click:hover{border-color:var(--c);box-shadow:0 1px 6px rgba(16,24,40,.08)}
+.card.copied{border-color:var(--ok);box-shadow:0 0 0 2px var(--ok-t)}
+.chead{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:6px 9px;background:var(--t);color:var(--c)}
+.pill,.copybtn,.chead>.i{flex:none}
+.ctitle{margin:0;min-width:min-content;flex:0 1 auto;font-size:13.5px;font-weight:800;color:var(--c);letter-spacing:-.01em}
+.pill{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:700;padding:2px 6px;border-radius:4px;white-space:nowrap;background:#fff;border:1px solid var(--line);color:#475467}
+.pill .i{width:11px;height:11px;stroke-width:2.6}
+.pill.yes{color:var(--ok);border-color:#c3e6cf}
+.pill.no{color:var(--bad);border-color:#f3c9c4}
+.pill.kit{color:var(--mm);border-color:#c5d5fa}
+.copybtn{margin-left:auto;display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:700;padding:3px 8px;border-radius:4px;background:#fff;border:1px solid var(--b);color:var(--c);white-space:nowrap}
+.copybtn .i{width:12px;height:12px}
 .card.click:hover .copybtn{background:var(--c);border-color:var(--c);color:#fff}
 .card.copied .copybtn,.card.copied:hover .copybtn{background:var(--ok);border-color:var(--ok);color:#fff}
 .body{padding:6px 10px 8px;font-size:12px;line-height:1.42;color:#2b2f38;overflow-wrap:anywhere}
 .body .gap{height:5px}
+.ph{background:#e3e8fb;color:#3538cd;font-weight:800;padding:0 3px;border-radius:3px}
 .card.email .body{font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.4;color:#111}
 .card.email .body .gap{height:9px}
-.card.prompt .body{max-height:52px;overflow:hidden;color:var(--muted);font-size:11.5px;-webkit-mask-image:linear-gradient(#000 40%,transparent);mask-image:linear-gradient(#000 40%,transparent)}
-.card.prompt.open .body{max-height:none;-webkit-mask-image:none;mask-image:none;color:#2b2f38}
-.more{display:block;margin:0 10px 7px;padding:0;border:0;background:none;font-size:11.5px;font-weight:700;color:var(--mm)}
-.more:hover{text-decoration:underline}
 .raw{position:absolute;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;white-space:pre}
 
 /* compact subject card: one line */
-.card.subject .chead{padding:6px 9px;flex-wrap:nowrap}
-.card.subject .ctitle{font-size:11.5px;opacity:.85}
+.card.subject .ctitle{font-size:11.5px;font-weight:700;color:var(--muted)}
 .card.subject .subj{font-weight:800;font-size:12.5px;color:var(--ink);overflow-wrap:anywhere}
 
 /* variant buttons */
 .vwrap{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:7px 9px 8px}
 .variants{display:flex;flex-wrap:wrap;gap:5px}
-.vbtn{min-height:30px;padding:0 10px;border-radius:8px;border:1.5px solid var(--b);background:#fff;color:var(--c);font-size:12px;font-weight:800;transition:background .1s,color .1s}
+.vbtn{min-height:29px;padding:0 10px;border-radius:4px;border:1px solid var(--b);background:#fff;color:var(--ink);font-size:12px;font-weight:700;transition:background .1s,color .1s}
 .vbtn:hover{background:var(--c);border-color:var(--c);color:#fff}
-.vbtn.nv{color:var(--bad);border-color:#f2b8b3;background:var(--bad-t)}
+.vbtn.nv{color:var(--bad);border-color:#f3c9c4;background:var(--bad-t)}
 .vbtn.nv:hover{background:var(--bad);border-color:var(--bad);color:#fff}
 .vbtn.copied,.vbtn.copied:hover{background:var(--ok);border-color:var(--ok);color:#fff}
 .preview{flex:1 1 220px;color:var(--muted);font-size:11px}
 .preview div{white-space:pre-line;font-weight:700;font-size:12.5px;color:var(--ink);overflow-wrap:anywhere}
 
-.tab:focus-visible,.chip:focus-visible,.card:focus-visible,.vbtn:focus-visible,.more:focus-visible{outline:3px solid var(--mm);outline-offset:2px}
+.tab:focus-visible,.chip:focus-visible,.card:focus-visible,.vbtn:focus-visible{outline:2px solid var(--mm);outline-offset:2px}
 [hidden]{display:none!important}
 .nores{margin:50px auto;text-align:center;color:var(--muted);font-size:13px}
-.nores .big{display:block;font-size:34px;margin-bottom:6px}
 .nores b{display:block;color:var(--ink);font-size:16px;margin-bottom:3px}
 .hint{margin-top:24px;color:var(--muted);font-size:11.5px;text-align:center}
-.hint kbd{font:600 10px/1 Inter,system-ui,sans-serif;padding:2px 5px;border:1px solid var(--line);border-radius:4px;background:var(--soft)}
+.hint kbd{font:600 10px/1 Inter,system-ui,sans-serif;padding:2px 5px;border:1px solid var(--line);border-radius:3px;background:var(--soft)}
 
-#toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,14px);background:#14161b;color:#fff;padding:9px 15px;border-radius:9px;font-size:12.5px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .15s,transform .15s;max-width:90vw;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+#toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,14px);display:flex;align-items:center;gap:7px;background:#16181d;color:#fff;padding:9px 14px;border-radius:var(--r);font-size:12.5px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .15s,transform .15s;max-width:90vw;box-shadow:0 8px 24px rgba(0,0,0,.18)}
 #toast.show{opacity:1;transform:translate(-50%,0)}
 #toast.err{background:var(--bad)}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -149,8 +148,8 @@ main{max-width:1360px;margin:0 auto;padding:2px max(16px,2vw) 36px}
   <div class="bar">
     <nav class="tabs" id="tabs" role="tablist" aria-label="Template sets"></nav>
     <div class="tools">
-      <label class="search"><span>🔎</span><input id="q" type="search" placeholder="Search templates" autocomplete="off" aria-label="Search templates"><kbd>/</kbd></label>
-      <div class="last" id="last" title="Last thing you copied">📋 Last copied: <b>nothing yet</b></div>
+      <label class="search"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><input id="q" type="search" placeholder="Search templates" autocomplete="off" aria-label="Search templates"><kbd>/</kbd></label>
+      <div class="last" id="last" title="Last thing you copied"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="12" height="16" rx="2"/><path d="M9.5 5V3.5h5V5M9.5 11h5M9.5 15h5"/></svg><span>Last copied:</span> <b>nothing yet</b></div>
     </div>
   </div>
 </header>
@@ -186,55 +185,108 @@ const FLAGS = {
 const flag = code => `<span class="flag">${FLAGS[code]}</span>`;
 
 
+// MiniMed mark: blue flag with a bold white M
+FLAGS.mm = svg(`<rect width="30" height="20" fill="#1d4ed8"/><path d="M9.2 15.2V5.4l5.8 6.8 5.8-6.800v9.8" fill="none" stroke="#ffffff" stroke-width="2.9" stroke-linejoin="miter" stroke-linecap="butt"/>`);
+
+/* ================= icons (drawn for this page, one per situation) ================= */
+const ICONS = {
+  copy: `<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/>`,
+  check: `<path d="M5 12.5l4.5 4.500L19 7.5"/>`,
+  ban: `<circle cx="12" cy="12" r="8.5"/><path d="M6 6l12 12"/>`,
+  box: `<path d="M4 8l8-4.500L20 8v8l-8 4.500L4 16z"/><path d="M4 8l8 4.500L20 8M12 12.500v8"/>`,
+  tag: `<path d="M3.5 12.500V5A1.5 1.5 0 0 1 5 3.500h7.500l8 8-9 9z"/><circle cx="8" cy="8" r="1.3"/>`,
+  note: `<path d="M6 3.500h8.500L19 8v12.500H6z"/><path d="M14 3.500v5h5M9 13h7M9 16.500h5"/>`,
+  mail: `<rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="M4 7.500l8 6 8-6"/>`,
+  ins: `<circle cx="12" cy="7.5" r="4"/><circle cx="12" cy="7.5" r="1" fill="currentColor" stroke="none"/><path d="M12 14.500v6M9 18l3 3 3-3"/>`,
+  dspc: `<rect x="5.5" y="3.5" width="13" height="17" rx="2.5"/><path d="M12 8v5"/><circle cx="12" cy="16.3" r="1" fill="currentColor" stroke="none"/>`,
+  read: `<path d="M12 3.500c3.2 4 5.5 6.9 5.5 10a5.5 5.5 0 0 1-11 0c0-3.1 2.3-6 5.5-10z"/><path d="M9.5 14a2.5 2.5 0 0 0 2.5 2.5"/>`,
+  multi: `<circle cx="7.5" cy="8" r="3.5"/><circle cx="16.5" cy="8" r="3.5"/><circle cx="12" cy="16" r="3.5"/>`,
+  cycle: `<path d="M19.5 12a7.5 7.5 0 0 1-13.2 4.900M4.5 12a7.5 7.5 0 0 1 13.2-4.9"/><path d="M17.9 3.500v3.800h-3.800M6.1 20.500v-3.800h3.8"/>`,
+  home: `<path d="M4 11l8-7 8 7"/><path d="M6.5 9.500V20h11V9.5"/><path d="M10 20v-5h4v5"/>`,
+  barcode: `<path d="M5 6v12M8.5 6v12M12 6v8M15.5 6v12M19 6v12"/>`,
+  twice: `<rect x="4" y="4" width="11" height="11" rx="2"/><rect x="9" y="9" width="11" height="11" rx="2"/>`,
+  stop: `<path d="M8.5 3.500h7l5 5v7l-5 5h-7l-5-5v-7z"/><path d="M8.5 12h7"/>`,
+  clock: `<circle cx="12" cy="12" r="8.5"/><path d="M12 7.500V12l3 2"/>`,
+  xcircle: `<circle cx="12" cy="12" r="8.5"/><path d="M9 9l6 6M15 9l-6 6"/>`,
+  users: `<circle cx="9" cy="8.5" r="3.2"/><path d="M3.5 19.500c.4-3.2 2.6-5 5.5-5s5.1 1.8 5.5 5"/><circle cx="16.8" cy="9.5" r="2.5"/><path d="M16.5 14.600c2.3.2 3.7 1.7 4 4.4"/>`,
+  cross: `<path d="M9.5 4h5v5.500H20v5h-5.500V20h-5v-5.500H4v-5h5.500z"/>`,
+  globe: `<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.500c2.5 2.6 3.7 5.4 3.7 8.500s-1.2 5.9-3.7 8.500c-2.5-2.6-3.7-5.4-3.7-8.500s1.2-5.9 3.7-8.500z"/>`,
+  shield: `<path d="M12 3.500l7 2.500v5.500c0 4.3-2.8 7.4-7 9-4.2-1.6-7-4.7-7-9V6z"/><path d="M12 8.500v4"/><circle cx="12" cy="15.5" r="1" fill="currentColor" stroke="none"/>`,
+  hospital: `<rect x="4.5" y="4.5" width="15" height="16" rx="1.5"/><path d="M12 8v5M9.5 10.500h5M10 20.500v-3.500h4v3.5"/>`,
+  heart: `<path d="M12 20s-7.5-4.6-7.5-10A4.2 4.2 0 0 1 12 7.5 4.2 4.2 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/>`,
+  building: `<path d="M5 20.500v-16h9v16M14 9.500h5v11M3.5 20.500h17"/><path d="M8 8h3M8 11.500h3M8 15h3"/>`,
+  idcard: `<rect x="3.5" y="5.5" width="17" height="13" rx="2"/><circle cx="8.7" cy="11" r="2"/><path d="M5.8 15.500c.5-1.4 1.5-2 2.9-2s2.4.6 2.9 2M14 10h4M14 13.500h4"/>`,
+  pin: `<path d="M12 21s-6.5-5.6-6.5-10.500a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21z"/><circle cx="12" cy="10.5" r="2.3"/>`,
+};
+const icon = name => {
+  if (!ICONS[name]) throw new Error("Missing icon: " + name);
+  return `<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${ICONS[name]}</svg>`;
+};
 
 /* =====================================================================
    TEMPLATE TEXT
    L(...) joins lines with ONE BLANK LINE between them (Salesforce layout).
+   Every note follows: complaint, order number, action, email, then TSG (DSPC / Read).
+   XXX marks something to fill in after pasting.
    ===================================================================== */
 const L = (...lines) => lines.join("\n\n");
 
 /* ---------------- MiniMed ---------------- */
 const MM_SUBJECT = { ins: "MiniMed | GSE | INSERTION-3", dspc: "MiniMed | GSE | DSPC" };
+const MM_TSG = 'TSG: ALL "UNK" ANSWERS ARE DUE TO INFORMATION MISSING FROM THE WEB FORM';
+const MM_TSG_UK = "All UNK-API TSG answers are due to information missing from the web form.";
 
 const MM_NOTE = {
   ins: L("My sensor fell off during wear or use",
+         "ORDER NUMBER: XXX",
          "ACTION: REPLACED THE SENSOR WITHOUT SENDING A RETURN KIT",
-         "CONFIRMATION EMAIL SENT",
-         "ORDER NUMBER: "),
+         "CONFIRMATION EMAIL SENT"),
   dspcNo: L("I see an error message",
+            "ORDER NUMBER: XXX",
             "ACTION: REPLACED THE SENSOR WITHOUT SENDING A RETURN KIT",
             "CONFIRMATION EMAIL SENT",
-            "ORDER NUMBER: ",
-            "ALL TSG UNK ANSWERS ARE DUE TO MISSING INFO FROM THE FORM"),
+            MM_TSG),
   dspcYes: L("I see an error message",
+             "ORDER NUMBER: XXX",
              "ACTION: REPLACED THE SENSOR AND SENT A RETURN KIT",
              "CONFIRMATION EMAIL SENT",
-             "ORDER NUMBER: ",
-             "ALL TSG UNK ANSWERS ARE DUE TO MISSING INFO FROM THE FORM"),
+             MM_TSG),
+  already: L("ACTION: DID NOT REPLACE THE SENSOR BECAUSE IT WAS ALREADY REPLACED IN CASE XXX",
+             "EMAIL SENT TO INFORM THE CUSTOMER"),
+  address: L("ACTION: DID NOT REPLACE THE SENSOR BECAUSE THE ADDRESS IS INCORRECT OR INVALID",
+             "EMAIL SENT TO B2B TO REQUEST A VALID ADDRESS"),
+  canary: L("ACTION: DID NOT REPLACE THE SENSOR BECAUSE THE CUSTOMER LIVES IN THE CANARY ISLANDS AND THE DNI IS NEEDED TO PROCESS THE REPLACEMENT ORDER",
+            "EMAIL SENT TO B2B TO REQUEST THE DNI"),
 };
 
-// UK only: title line and "Customer wrote on" sit on consecutive lines.
+// UK only: sentence case; title line and "Customer wrote on" sit on consecutive lines.
 const MM_NOTE_UK = {
   ins: L("MiniMed | GSE | INSERTION-3 – Instinct sensor – XXX\nCustomer wrote on XXX",
          "My sensor fell off during wear or use",
+         "Order Number: XXX",
          "Action: Replaced the sensor without sending a return kit",
-         "Sent the confirmation email",
-         "Order Number: "),
+         "Sent the confirmation email"),
   dspcNo: L("MiniMed | GSE | DSPC – Instinct sensor – XXX\nCustomer wrote on XXX",
             "I see an error message",
+            "Order Number: XXX",
             "Action: Replaced the sensor without sending a return kit",
             "Sent the confirmation email",
-            "Order Number: ",
-            "All UNK-API TSG are due to lack of information from the customer."),
+            MM_TSG_UK),
   dspcYes: L("MiniMed | GSE | DSPC – Instinct sensor – XXX\nCustomer wrote on XXX",
              "I see an error message",
+             "Order Number: XXX",
              "Action: Replaced the sensor and sent a return kit",
              "Sent the confirmation email",
-             "Order Number: ",
-             "All UNK-API TSG are due to lack of information from the customer."),
+             MM_TSG_UK),
+  already: L("Customer wrote on XXX",
+             "Action: Did not replace the sensor because it was already replaced in case XXX",
+             "Sent an email to inform the customer"),
+  address: L("Customer wrote on XXX",
+             "Action: Did not replace the sensor because the address is incorrect or invalid",
+             "Sent an email to B2B to request a valid address"),
 };
 
-// no = email without return kit, yes = email with return kit
+/* Customer emails: kept exactly as approved. Do not edit. */
 const MM = [
   { id: "ES-es", flag: "es", country: "Spain", lang: "Spanish",
     no: `Recibirá su sensor Instinct en un plazo de 5 a 7 días.
@@ -333,596 +385,155 @@ Returpakken inneholder alt du trenger, inkludert instruksjoner, for å sende pro
 Zestaw zwrotny zawiera wszystkie elementy i instrukcje potrzebne do odesłania produktu do firmy Abbott w celu dalszej oceny.` },
 ];
 
-const MM_PROMPT_PROVINCE = `I will provide a note containing address details and other information in the following format:
+const ES_EMAIL_HOSPITAL = `Gracias por contactar con nosotros y facilitarnos la información relativa al incidente con su producto FreeStyle Libre.
 
-Calle Ejemplo 12 3º B
-Sensor Serial Number
-0ABCD1234
-City
-Madrid
-Device Purchase Date
-State/Province
-Return Requested?
-No
-Zip/Postal Code
-28001
+En el caso de que reciba sus productos directamente desde su centro de salud u hospital, debe seguir el protocolo establecido por su área sanitaria y dirigirse al centro donde le proporcionan nuestros productos para que le gestionen el reemplazo del mismo.`;
 
-Extract only the address information from the note. Ignore all other fields.
-
-Return the result exactly in this four-line format:
-
-(Street, which is the first line)
-(City)
-(State/Province: determine which country the city and postcode belong to, then respond according to these rules:
-- Spain: provide the full name of the corresponding province.
-- Italy: provide the official two-letter abbreviation of the corresponding province.
-- Switzerland: provide the full name of the corresponding canton.
-- Other countries: write a dash -)
-(Zip/Postal Code)
-
-Do not include field labels, explanations, bullet points, or any additional text. Is everything clear?`;
-
-const MM_PROMPT_DSPC = `I'll send you text extracted from pages. Only use the most recent message I send you and ignore all earlier messages completely. Treat each new message as a fresh, independent task, and do not carry over any information from previous messages.
-
-Your job is to extract and transform the text according to the rules below.
-
-The text will be in this format:
-
-Product Information
-
-Q1. What was the display message you saw?
-
-A1. (answer)
-
-TSG
-
-Q1. How many days were you wearing the sensor?
-
-A1. (answer)
-
-Q2. What is the on-screen message event code?
-
-A2. (answer)
-
-Transformation rules: Remove the headings "Product Information" and "TSG" and all the questions. Output only the answers, in this exact order and format:
-
-(answer to "How many days were you wearing the sensor?") (If the answer is "0 Day", write "Same day" instead.)
-
-UNK-API
-
--.
-
--.
-
-CODE: (answer to "What is the on-screen message event code?")
-
-MESSAGE: (answer to "What was the display message you saw?")
-
-Keep the original answers exactly as written. Do not add bullet points, labels, explanations, or any other text.
-
-Reply only with the extracted result.`;
 
 /* ---------------- France GSE ---------------- */
 const FR_ORDINALS = ["1ER", "2EME", "3EME", "4EME", "5EME", "6EME", "7EME", "8EME", "9EME", "10EME"];
-const FR_SUBJECTS = [
-  { title: "Insertion · replacement n°", pills: [["yes", "Replace"]],
-    variants: FR_ORDINALS.map(o => ({ label: o, text: `GSE | INSERTION-3 | (${o} REMPLACEMENT, ${YEAR})` })) },
-  { title: "Insertion · quota exceeded", pills: [["no", "No replace"]], text: "GSE | INSERTION-3 | PAS DE REMPLACEMENT // QUOTA DEPASSE" },
-  { title: "Insertion · no replacement", pills: [["no", "No replace"]], text: "GSE | INSERTION-3 | PAS DE REMPLACEMENT" },
-  { title: "DSPC · no replacement", pills: [["no", "No replace"]], text: "GSE | DSPC PAS DE REMPLACEMENT" },
-];
+const FR_ORDER = "NUMÉRO DE COMMANDE : XXX";
+const FR_TSG = "RÉPONSES TSG INCONNUES : INFORMATIONS NON FOURNIES PAR LE FORMULAIRE WEB";
 
-const FR_REPLACE = [
-  { title: "Insertion", pills: [["yes", "Replace"], ["no", "No return"]],
+const FR_TOP_SUBJECTS = {
+  title: "Insertion · Replacement N°", ico: "tag", cat: "c-subj", wide: true,
+  variants: FR_ORDINALS.map(o => ({ label: o, text: `GSE | INSERTION-3 | (${o} REMPLACEMENT, ${YEAR})` }))
+    .concat([{ label: "QUOTA DEPASSE", text: "GSE | INSERTION-3 | PAS DE REMPLACEMENT // QUOTA DEPASSE", nv: true }]),
+};
+const FR_NO_SUBJECTS = {
+  title: "No-replacement subjects", ico: "tag", cat: "c-subj",
+  variants: [
+    { label: "INSERTION · PAS DE REMPLACEMENT", text: "GSE | INSERTION-3 | PAS DE REMPLACEMENT", nv: true },
+    { label: "DSPC · PAS DE REMPLACEMENT", text: "PAS DE REMPLACEMENT", nv: true },
+  ],
+};
+
+const FR_PRIORITY_NOTES = [
+  { title: "Insertion", ico: "ins", cat: "c-ins", pills: ["replace", "noKit"],
     text: L("Mon capteur est tombé pendant le port ou l'utilisation",
-            "NUMÉRO DE COMMANDE : ",
+            FR_ORDER,
             "ACTION : REMPLACEMENT CAPTEUR SANS KIT DE RETOUR // E-MAIL ENVOYÉ") },
-  { title: "DSPC", pills: [["yes", "Replace"], ["yes", "Return"]],
+  { title: "DSPC", ico: "dspc", cat: "c-dspc", pills: ["replace", "kit"],
     text: L("Je vois un message d'erreur",
-            "NUMÉRO DE COMMANDE : ",
+            FR_ORDER,
             "ACTION : REMPLACEMENT CAPTEUR AVEC KIT DE RETOUR // E-MAIL ENVOYÉ",
-            "JUSTIFICATION TSG INCONNUE : FORMULAIRE WEB") },
-  { title: "Multi-sensor", pills: [["yes", "Replace"], ["yes", "Return"]],
+            FR_TSG) },
+  { title: "Multi-sensor", ico: "multi", cat: "c-multi", pills: ["replace", "kit"],
     text: L("I have multiple sensor issues",
-            "NUMÉRO DE COMMANDE : ",
+            FR_ORDER,
             "ACTION : REMPLACEMENT CAPTEURS AVEC KIT DE RETOUR // E-MAIL ENVOYÉ",
-            "JUSTIFICATION TSG INCONNUE : FORMULAIRE WEB") },
+            FR_TSG) },
 ];
 
-const FR_NOREPLACE = [
-  { title: "Invalid SN",
-    text: L("ACTION : PAS DE REMPLACEMENT // NUMÉRO DE SÉRIE INVALIDE",
-            "DEMANDE D'INFORMATION COMPLÉMENTAIRE : E-MAIL ENVOYÉ") },
-  { title: "Same SN twice",
-    text: L("ACTION : PAS DE REMPLACEMENT // LE CLIENT A UTILISÉ LE MÊME NUMÉRO DE SÉRIE POUR LES DEUX RÉCLAMATIONS",
-            "DEMANDE D'INFORMATION COMPLÉMENTAIRE : E-MAIL ENVOYÉ") },
-  { title: "Already replaced",
-    text: "ACTION : PAS DE REMPLACEMENT // CAPTEUR DÉJÀ REMPLACÉ RELATIF AU CTP XXX // E-MAIL ENVOYÉ" },
-  { title: "Multiple accounts (not EHPAD)",
-    text: "ACTION : PAS DE REMPLACEMENT // PLUSIEURS COMPTES AVEC LA MÊME ADRESSE E-MAIL // E-MAIL ENVOYÉ" },
-  { title: "Fraud",
-    text: "ACTION : PAS DE REMPLACEMENT // SUSPICION DE FRAUDE // E-MAIL ENVOYÉ" },
-  { title: "Incomplete address",
+const FR_NO = [
+  { title: "Already replaced", ico: "cycle",
+    text: "ACTION : PAS DE REMPLACEMENT // CAPTEUR DÉJÀ REMPLACÉ DANS LE CTP XXX // E-MAIL ENVOYÉ" },
+  { title: "Incomplete address", ico: "home",
     text: L("ACTION : PAS DE REMPLACEMENT // ADRESSE INCOMPLÈTE // E-MAIL ENVOYÉ",
             "ADRESSE À VALIDER AVANT DE PASSER LA COMMANDE") },
-  { title: "Pharmacy address",
-    text: "ACTION : PAS DE REMPLACEMENT // L'ADRESSE EST CELLE D'UNE PHARMACIE // E-MAIL ENVOYÉ" },
-  { title: "Wrong country",
-    text: L("ACTION : PAS DE REMPLACEMENT // E-MAIL ENVOYÉ",
-            "ERREUR DE DESTINATION : FORMULAIRE WEB ENVOYÉ AU PAYS INCORRECT") },
-  { title: "Quota reached",
+  { title: "Invalid SN", ico: "barcode",
+    text: L("ACTION : PAS DE REMPLACEMENT // NUMÉRO DE SÉRIE INVALIDE",
+            "DEMANDE D'INFORMATIONS COMPLÉMENTAIRES : E-MAIL ENVOYÉ") },
+  { title: "Same SN twice", ico: "twice",
+    text: L("ACTION : PAS DE REMPLACEMENT // LE CLIENT A UTILISÉ LE MÊME NUMÉRO DE SÉRIE POUR LES DEUX RÉCLAMATIONS",
+            "DEMANDE D'INFORMATIONS COMPLÉMENTAIRES : E-MAIL ENVOYÉ") },
+  { title: "Quota reached", ico: "stop",
     text: L("NUMÉRO DE COMMANDE : VOIR NOTE",
             "GSE | INSERTION-3 | PAS DE REMPLACEMENT // QUOTA DEPASSE") },
-  { title: "Incompatible sensor (TSG)",
+  { title: "Scan again in X minutes (TSG)", ico: "clock",
+    text: "ACTION : PAS DE REMPLACEMENT SELON LE TSG, CAR LE MESSAGE INDIQUE : “SCANNER À NOUVEAU DANS XXX MINUTES”" },
+  { title: "Incompatible sensor (TSG)", ico: "xcircle",
     text: "ACTION : PAS DE REMPLACEMENT // CAPTEUR INCOMPATIBLE SELON LE TSG // E-MAIL ENVOYÉ" },
-  { title: "Scan again in X minutes (TSG)",
-    text: "ACTION : PAS DE REMPLACEMENT SELON LE TSG, CAR LE MESSAGE INDIQUE : “SCANNER À NOUVEAU DANS -- MINUTES”" },
+  { title: "Multiple accounts (not EHPAD)", ico: "users",
+    text: "ACTION : PAS DE REMPLACEMENT // PLUSIEURS COMPTES AVEC LA MÊME ADRESSE E-MAIL // E-MAIL ENVOYÉ" },
+  { title: "Pharmacy address", ico: "cross",
+    text: "ACTION : PAS DE REMPLACEMENT // L'ADRESSE EST CELLE D'UNE PHARMACIE // E-MAIL ENVOYÉ" },
+  { title: "Wrong country", ico: "globe",
+    text: L("ACTION : PAS DE REMPLACEMENT // E-MAIL ENVOYÉ",
+            "ERREUR DE DESTINATION : FORMULAIRE WEB ENVOYÉ AU MAUVAIS PAYS") },
+  { title: "Fraud", ico: "shield",
+    text: "ACTION : PAS DE REMPLACEMENT // SUSPICION DE FRAUDE // E-MAIL ENVOYÉ" },
 ];
 
-const FR_PROMPT_DSPC = `I will send you text in the following format:
-
-(a code)**Product Information**
-
-Q1. Quel était le message affiché à l’écran ?
-
-A1. (the answer in French)
-
-**TSG**
-
-Q1. Depuis combien de jours portez-vous le capteur ?
-
-A1. (the answer in French)
-
-Q2. Quel est le code d'événement de message à l'écran ?
-
-A2. (the answer in French)
-
-Transformation rules:
-
-Remove the headings "**Product Information**" and "**TSG**".
-
-Do not write the full questions in French. Replace them with these English labels:
-
-- "Depuis combien de jours portez-vous le capteur ?" becomes DAYS:
-- "Quel était le message affiché à l’écran ?" becomes MESSAGE:
-- "Quel est le code d'événement de message à l'écran ?" becomes CODE:
-
-Output the fields in this exact order, as bullet points, with a space between each label and its answer:
-
-- DAYS: (the answer; if the answer is 0, write: le même jour)
-- DEVICE: (map the code at the very start of the text to the device name, using the mapping below)
-- MESSAGE: (the answer)
-- CODE: (the answer)
-
-Device mapping:
-
-2 → Libre 2 Reader (make sure 2 gives Libre 2 Reader, not Libre 3 Reader)
-LL → LibreLink
-3 → Libre 3 Reader (make sure 3 gives Libre 3 Reader, not Libre 2 Reader)
-3a or 3app → Application Libre 3
-
-Preserve the original answers' content; do not add any other text.
-
-At the end, on its own line, append exactly: Inconnu-GSE
-
-Is that clear?`;
-
-const FR_PROMPT_ADDRESS = `I will provide a note containing French address details and other information in the following format:
-
-12 Rue de l'Exemple
-Sensor Serial Number
-0ABCD1234
-City
-Lyon
-Device Purchase Date
-State/Province
-Rhone
-Return Requested?
-No
-Zip/Postal Code
-69001
-
-Extract only the address information from the note. Ignore all other fields.
-
-Return the result exactly in this four-line format:
-
-(Street, which is the first line)
-(City)
-(State/Province: provide the full name of the département that matches the postcode, written correctly in French with its accents and hyphens, for example Isère or Seine-Saint-Denis)
-(Zip/Postal Code)
-
-Do not include field labels, explanations, bullet points, or any additional text. Is everything clear?
-
-DO NOT PROVIDE ANY CLICKABLE LINKS`;
-
 /* ---------------- Spain GSE ---------------- */
-const ES_TSG = "TSG: LAS RESPUESTAS “DESCONOCIDO-GSE” SE DEBEN A QUE EL CLIENTE NO LAS PROPORCIONÓ EN EL FORMULARIO";
-const ES_REGION_ACTION = "ACCIÓN: SE INFORMA AL CLIENTE QUE SE HA REGISTRADO LA INCIDENCIA Y DEBE SOLICITAR LOS REEMPLAZOS EN SU CENTRO DE SALUD.";
+const ES_ORDER = "NÚMERO DE PEDIDO: XXX";
+const ES_TSG = "TSG: LAS RESPUESTAS “DESCONOCIDO-GSE” SE DEBEN A QUE EL FORMULARIO WEB NO PROPORCIONA ESA INFORMACIÓN";
+const ES_REGION = "ACCIÓN: SE INFORMÓ AL CLIENTE DE QUE SE HA REGISTRADO LA INCIDENCIA Y DE QUE DEBE SOLICITAR LOS REEMPLAZOS EN SU CENTRO DE SALUD";
 
-const ES_REPLACE = [
-  { title: "Insertion", pills: [["yes", "Replace"], ["no", "No return"]],
+const ES_PRIORITY = [
+  { title: "Insertion", ico: "ins", cat: "c-ins", pills: ["replace", "noKit"],
     text: L("Mi sensor se cayó durante el tiempo de uso",
-            "NÚMERO DE ORDEN: ",
+            ES_ORDER,
             "ACCIÓN: SE REEMPLAZÓ EL SENSOR SIN ENVIAR UN KIT DE DEVOLUCIÓN",
             "CORREO DE CONFIRMACIÓN ENVIADO") },
-  { title: "DSPC", pills: [["yes", "Replace"], ["yes", "Return"]],
+  { title: "DSPC", ico: "dspc", cat: "c-dspc", pills: ["replace", "kit"],
     text: L("Ha aparecido un mensaje de error",
-            "NÚMERO DE ORDEN: ",
+            ES_ORDER,
             "ACCIÓN: SE REEMPLAZÓ EL SENSOR Y SE ENVIÓ EL KIT DE DEVOLUCIÓN",
             "CORREO DE CONFIRMACIÓN ENVIADO",
             ES_TSG) },
-  { title: "Read", pills: [["yes", "Replace"], ["yes", "Return"]],
-    text: L("NÚMERO DE ORDEN: ",
+  { title: "Read", ico: "read", cat: "c-read", pills: ["replace", "kit"],
+    text: L("Comparé las lecturas de mi sensor y veo una desviación",
+            ES_ORDER,
             "ACCIÓN: SE REEMPLAZÓ EL SENSOR Y SE ENVIÓ EL KIT DE DEVOLUCIÓN",
             "CORREO DE CONFIRMACIÓN ENVIADO",
             "UBICACIÓN DEL SENSOR: UNK",
             "REGISTRO DE EVENTOS: UNK",
             ES_TSG) },
-  { title: "Multi-sensor", pills: [["yes", "Replace"], ["yes", "Return"]],
+  { title: "Multi-sensor", ico: "multi", cat: "c-multi", pills: ["replace", "kit"],
     text: L("I have multiple sensor issues",
-            "NÚMERO DE ORDEN: ",
+            ES_ORDER,
             "ACCIÓN: SE REEMPLAZARON LOS SENSORES Y SE ENVIÓ EL KIT DE DEVOLUCIÓN",
             "CORREO DE CONFIRMACIÓN ENVIADO",
             ES_TSG) },
 ];
 
-const ES_NOREPLACE = [
-  { title: "Already replaced",
-    text: L("ACCIÓN: RESUELTO EN CASO CTP: ",
-            "SE ENVÍA CORREO DE INCIDENCIA RESUELTA.") },
-  { title: "Health-centre region",
-    variants: ["MADRID", "CASTILLA-LA MANCHA", "CEUTA"].map(r => ({ label: r, text: L(r, ES_REGION_ACTION) })) },
-  { title: "Quota limit reached",
+const ES_NO = [
+  { title: "Health-centre region", ico: "hospital",
+    variants: ["MADRID", "CASTILLA-LA MANCHA", "CEUTA"].map(r => ({ label: r, text: L(r, ES_REGION) })) },
+  { title: "Andorra · pharmacy", ico: "cross",
+    text: L("ANDORRA",
+            "ACCIÓN: SE INFORMÓ AL CLIENTE DE QUE SE HA REGISTRADO LA INCIDENCIA Y DE QUE DEBE SOLICITAR LOS REEMPLAZOS EN SU FARMACIA") },
+  { title: "Already replaced", ico: "cycle",
+    text: L("ACCIÓN: RESUELTO EN EL CASO CTP XXX",
+            "SE ENVIÓ CORREO DE INCIDENCIA RESUELTA") },
+  { title: "Quota limit reached", ico: "stop",
     text: L("EXCESO DE REEMPLAZOS",
-            "ACCIÓN: NO SE REALIZA EL REEMPLAZO DEBIDO A EXCESO DE REEMPLAZOS",
-            "SE LE ENVÍA UN CORREO") },
-  { title: "Caregiver",
-    text: L("ACCIÓN: NO SE REALIZA EL REEMPLAZO",
-            "SOLICITUD WEB POSIBLEMENTE DILIGENCIADA POR CUIDADOR",
-            "SE ENVÍA EMAIL PARA QUE NOS CONTACTE",
-            "---PRÓXIMO AGENTE: EDUCAR AL CUIDADOR A LLAMAR SIEMPRE PARA REPORTAR SEGÚN INDICA LA WEB; SI ES UNA PERSONA MAYOR, DEJARLO EN SPECIAL INSTRUCTIONS Y ABRIR CASO NUEVO---") },
-  { title: "Residential care · multiple accounts",
+            "ACCIÓN: NO SE REALIZÓ EL REEMPLAZO DEBIDO A EXCESO DE REEMPLAZOS",
+            "SE LE ENVIÓ UN CORREO") },
+  { title: "Address incorrect or uncertain", ico: "pin",
+    text: L("ACCIÓN: NO SE REALIZÓ EL REEMPLAZO DEBIDO A QUE LA DIRECCIÓN ES INCORRECTA O INCOMPLETA",
+            "SE ENVIÓ UN CORREO PARA SOLICITAR LA DIRECCIÓN CORRECTA",
+            "DIRECCIÓN A VALIDAR ANTES DE REALIZAR EL PEDIDO") },
+  { title: "Incompatible sensor (TSG)", ico: "xcircle",
+    text: L("ACCIÓN: NO SE REALIZÓ EL REEMPLAZO DEBIDO A QUE EL SENSOR ES INCOMPATIBLE SEGÚN EL TSG",
+            "SE LE ENVIÓ UN CORREO") },
+  { title: "Scan again in X minutes (TSG)", ico: "clock",
+    text: "ACCIÓN: NO SE REALIZÓ EL REEMPLAZO SEGÚN EL TSG, YA QUE EL MENSAJE INDICA: “VUELVA A ESCANEAR EN XXX MINUTOS”" },
+  { title: "Caregiver", ico: "heart",
+    text: L("ACCIÓN: NO SE REALIZÓ EL REEMPLAZO",
+            "SOLICITUD WEB POSIBLEMENTE CUMPLIMENTADA POR UN CUIDADOR",
+            "SE ENVIÓ UN CORREO PARA QUE NOS CONTACTE",
+            "---PRÓXIMO AGENTE: INDICAR AL CUIDADOR QUE DEBE LLAMAR SIEMPRE PARA NOTIFICAR LA INCIDENCIA, SEGÚN INDICA LA WEB; SI ES UNA PERSONA MAYOR, DEJARLO EN SPECIAL INSTRUCTIONS Y ABRIR UN CASO NUEVO---") },
+  { title: "Residential care · multiple accounts", ico: "building",
     text: L("SE TRATA DE UNA RESIDENCIA",
-            "ACCIÓN: NO SE REALIZA EL REEMPLAZO",
-            "EMAIL COMPARTIDO CON VARIAS CUENTAS",
-            "WEB FORM FUE DILIGENCIADO PROBABLEMENTE POR UN CUIDADOR.",
-            "SE PIDE QUE NOS CONTACTE",
-            "---PRÓXIMO AGENTE: EDUCAR AL CUIDADOR PARA LLAMAR SIEMPRE A REPORTAR SEGÚN INDICA LA WEB Y ABRIR UN CASO NUEVO---") },
+            "ACCIÓN: NO SE REALIZÓ EL REEMPLAZO",
+            "CORREO COMPARTIDO CON VARIAS CUENTAS",
+            "EL FORMULARIO WEB PROBABLEMENTE LO RELLENÓ UN CUIDADOR",
+            "SE LE PIDIÓ QUE NOS CONTACTE",
+            "---PRÓXIMO AGENTE: INDICAR AL CUIDADOR QUE DEBE LLAMAR SIEMPRE PARA NOTIFICAR LA INCIDENCIA, SEGÚN INDICA LA WEB, Y ABRIR UN CASO NUEVO---") },
 ];
 
-const ES_EMAIL_HOSPITAL = `Gracias por contactar con nosotros y facilitarnos la información relativa al incidente con su producto FreeStyle Libre.
-
-En el caso de que reciba sus productos directamente desde su centro de salud u hospital, debe seguir el protocolo establecido por su área sanitaria y dirigirse al centro donde le proporcionan nuestros productos para que le gestionen el reemplazo del mismo.`;
-
-const ES_PROMPT_ADDRESS = `You will receive a note containing address details and other information.
-
-Your task is to extract only the address information and determine whether a replacement is allowed.
-
-Input example:
-
-Calle Ejemplo 25
-Sensor Serial Number
-0ABCD1234XY
-City
-Logroño
-Device Purchase Date
-State/Province
-La Rioja
-Return Requested?
-No
-Zip/Postal Code
-26001
-
-Instructions:
-
-1. Extract these four address fields:
-   - Street/address line: the first line of the note
-   - City
-   - State/Province
-   - Zip/Postal Code
-
-2. Ignore all other fields and information.
-
-3. If State/Province is missing or empty, work out the province from the city and postcode and output it. If any other address field is missing or empty, output a single dash (-) for that field. Never omit or skip a field.
-
-4. Preserve the original language of the address.
-
-5. Abbreviate terms only in the Street/address line. Do not abbreviate the City, State/Province, or Zip/Postal Code.
-
-6. On the Street/address line:
-   - Preserve all numbers, names, units, punctuation, accents, spacing, and other details.
-   - Do not reorder, remove, omit, or alter any text.
-   - Replace only the terms listed below with their exact corresponding abbreviations. Match the terms whatever their capitalization (CALLE, Calle and calle all become C/).
-   - Leave all other text unchanged.
-
-Required abbreviations:
-
-Apartamento → Apto.
-Ático → Át.
-Avenida → Av.
-Bajada → Bja.
-Bajos → Bj.
-Barrio → B.º
-Barriada → Bda.
-Bloque → Bl.
-Calle → C/
-Callejón → Cjón.
-Carretera → Crta.
-Correo electrónico → C. e.
-Derecha → Dcha.
-Distrito → Dtto.
-Entresuelo → Entl.
-Escalera → Esc.
-Esquina → Esq.
-Finca → Fca.
-Habitación → Hab.
-Izquierdo/a → Izq.
-Número → Núm.
-Parcela → Parc.
-Pasaje → Pje.
-Paseo → P.º
-Plaza → Pl.
-Plazoleta → Plzta.
-Planta → Plt.
-Población → Pobl.
-Polígono → Pol.
-Portal → Ptal.
-Principal → Ppal.
-Provincia → Prov.
-Puerta → Pta.
-Rambla → Rbla.
-Ronda → Rda.
-Sin número → S/n
-Sobreático → S/át.
-Subida → Sub.
-Teléfono → Tel.
-Término municipal → Térm. mpal.
-Travesera → Traves.
-Travesía → Trv.
-Urbanización → Urb.
-Viaducto → Viad.
-Interior → Int.
-Exterior → Ext.
-
-7. Identify the province and region of the address from the city and postcode.
-
-8. Apply these replacement rules:
-   - Madrid, Ceuta, and Castilla-La Mancha (the provinces of Albacete, Ciudad Real, Cuenca, Guadalajara and Toledo): no replacement is allowed, because replacement requests must be handled through a hospital or health center. Status: NOT Allowed.
-   - Andorra: replacement requests are handled through pharmacies. Status: Pharmacy.
-   - Any address outside all the locations listed above: Status: Allowed.
-   - If the location cannot be determined clearly: Status: Uncertain.
-
-9. Output exactly five lines in this order:
-
-   Line 1: Street/address line
-   Line 2: City
-   Line 3: State/Province
-   Line 4: Zip/Postal Code
-   Line 5: One of the following exact values:
-   - {{{ ✅ Allowed }}}
-   - {{{ ❌ NOT Allowed }}}
-   - {{{ 💊 Pharmacy }}}
-   - {{{ ❓ Uncertain }}}
-
-10. Do not include field labels, explanations, reasons, bullet points, blank lines, or any other text.`;
-
-const ES_PROMPT_TSG = `Te enviaré texto extraído de páginas. Usa únicamente el mensaje más reciente que te envíe. Ignora por completo todos los mensajes anteriores. Trata cada mensaje nuevo como una tarea independiente y no reutilices información de mensajes anteriores.
-
-Tu tarea es identificar qué escenario corresponde a la entrada y extraer y transformar el texto de acuerdo con las reglas aplicables que se indican a continuación.
-
-REGLAS GENERALES
-
-1. No uses viñetas antes de la línea Days en ningún escenario.
-
-2. Usa viñetas para todos los demás campos extraídos cuando se muestre una viñeta en el formato de salida requerido.
-
-3. Deja un espacio entre la etiqueta de cada campo y su respuesta correspondiente.
-
-4. Conserva el contenido de las respuestas originales, excepto cuando se requiera explícitamente una transformación.
-
-5. No añadas explicaciones, encabezados, comentarios ni ningún otro texto.
-
-6. Cada resultado extraído termina con la línea UNK-GSE, tal como aparece en el formato de salida requerido. Escríbela una sola vez por resultado; no la repitas.
-
-ASIGNACIÓN DE DISPOSITIVOS
-
-Cuando un escenario requiera un campo DEVICE, extrae el prefijo del código exactamente como aparece al principio de la entrada, antes del primer encabezado («Product Information» o «TSG»).
-
-Asigna el código usando esta clave exacta:
-
-- 2 → FSL 2 Reader
-- LL → FS LibreLink
-- 3 → FSL 3 Reader
-- 3a → FSL 3 App
-
-Importante:
-
-- Asegúrate de que 2 no se asigne a FSL 3 Reader.
-- Asegúrate de que 3 no se asigne a FSL 2 Reader.
-- Asegúrate de que 3a no se asigne a FSL 3 Reader.
-- No importa si se usan mayúsculas o minúsculas. Por ejemplo, «ll», «LL» y «Ll» se asignan a «FS LibreLink».
-- Si el código no está entre los códigos indicados, muestra el código original exactamente como aparece.
-
-TRANSFORMACIÓN DE DÍAS
-
-Usa la respuesta a la pregunta sobre cuántos días se usó el sensor.
-
-- Si la respuesta es «0 Day», muestra «Mismo día».
-- Si la respuesta es «I'm not sure», muestra «Día desconocido».
-- De lo contrario, conserva la respuesta original.
-- La línea Days se escribe siempre en español, como se indica aquí. No la traduzcas al inglés en ningún escenario.
-- La línea Days no debe llevar viñeta.
-- No escribas «DAYS:» antes de la respuesta, a menos que aparezca explícitamente en el formato requerido que se muestra a continuación.
-
-ESCENARIO 1
-
-La entrada tendrá este formato:
-
-Product Information
-
-Q1. ¿Cuál era el mensaje que viste en la pantalla?
-
-A1. (respuesta)
-
-TSG
-
-Q1. ¿Cuántos días llevabas usando el sensor?
-
-A1. (respuesta)
-
-Q2. ¿Cuál es el código del evento del mensaje en pantalla?
-
-A2. (respuesta)
-
-Reglas de transformación:
-
-- Elimina los encabezados «Product Information» y «TSG».
-- Muestra los campos exactamente en este orden.
-- La línea Days no debe llevar viñeta.
-- Conserva el contenido de las respuestas originales.
-- No añadas ningún otro texto.
-
-Formato de salida requerido:
-
-(respuesta de días)
-
-- DEVICE: (nombre de dispositivo asignado o código original)
-- MESSAGE: (respuesta a «¿Cuál era el mensaje que viste en la pantalla?»)
-- CODE: (respuesta a «¿Cuál es el código del evento del mensaje en pantalla?»)
-
-UNK-GSE
-
-ESCENARIO 2
-
-La entrada tendrá este formato:
-
-TSG
-
-Q1. ¿Cuántos días llevabas usando el sensor?
-
-A1. (respuesta)
-
-Q2. ¿Cuál era la dirección de la flecha de tendencia en tu dispositivo FreeStyle Libre al momento de la comparación?
-
-A2. (respuesta)
-
-Q3. ¿Con qué estás comparando tu lectura?
-
-A3. (respuesta)
-
-Q4. Unidad de medida de tus lecturas
-
-A4. (respuesta)
-
-Q5. Lectura de comparación
-
-A5. (respuesta)
-
-Q6. Lectura del sensor Libre
-
-A6. (respuesta)
-
-Reglas de transformación:
-
-- Elimina el encabezado «TSG».
-- Muestra los campos exactamente en este orden.
-- La línea Days no debe llevar viñeta.
-- No incluyas «Unidad de medida de tus lecturas».
-- Conserva el contenido de las respuestas originales, excepto cuando se requiera un resumen u otra transformación explícita.
-- Traduce las respuestas al inglés, excepto la línea Days, que se queda en español.
-- No añadas ningún otro texto.
-
-Regla para el campo ISSUE: compara «Lectura del sensor Libre» con «Lectura de comparación».
-
-- Si la lectura del sensor es más baja que la lectura de comparación, escribe: Low readings - UNK-GSE
-- Si la lectura del sensor es más alta que la lectura de comparación, escribe: High readings - UNK-GSE
-- Si son iguales o no se puede determinar, escribe: Low readings - UNK-GSE // High readings - UNK-GSE
-
-Formato de salida requerido:
-
-- DEVICE: (nombre de dispositivo asignado o código original)
-- ISSUE: (resultado de la regla ISSUE)
-
-(respuesta de días)
-
-- BGM: (resumen de la respuesta a «¿Con qué estás comparando tu lectura?» en inglés)
-
-- 🩸 BGM: (respuesta a «Lectura de comparación»)
-
-- 🦋 SENSOR: (respuesta a «Lectura del sensor Libre»)
-
-- ARROW: (respuesta a «¿Cuál era la dirección de la flecha de tendencia en tu dispositivo FreeStyle Libre al momento de la comparación?» en inglés)
-
-UNK-GSE
-
-VARIOS RESULTADOS
-
-Si hay varios escenarios en la misma entrada, devuelve todos los resultados extraídos que correspondan en este orden exacto:
-
-1. Escenario 1
-2. Escenario 2
-
-Mantén separado cada resultado extraído y aplica a cada uno todas las reglas correspondientes.
-
-Responde únicamente con el resultado extraído. Después de completar la extracción solicitada, no sugieras nada más ni añadas comentarios adicionales.`;
-
-
-
-/* ================= presentation: icons, colours, order ================= */
+/* ================= tabs, pills ================= */
 const TABS = [
-  { id: "minimed", label: "MiniMed", cls: "mm", key: "1" },
+  { id: "minimed", label: "MiniMed", cls: "mm", flag: "mm", key: "1" },
   { id: "fr", label: "France GSE", flag: "fr", key: "2" },
   { id: "es", label: "Spain GSE", flag: "es", key: "3" },
 ];
-
-const P = {
-  replace: ["yes", "✅ Replace"], noReplace: ["no", "🚫 No replace"],
-  kit: ["kit", "📦 Return kit"], noKit: ["", "✖️ No return kit"],
+const PILLS = {
+  replace: ["yes", "check", "Replace"], noReplace: ["no", "ban", "No replace"],
+  kit: ["kit", "box", "Return kit"], noKit: ["", "ban", "No return kit"],
 };
-
-const byTitle = (arr, t) => {
-  const f = arr.find(x => x.title === t);
-  if (!f) throw new Error("Missing template: " + t);
-  return f;
-};
-
-// France: most used first
-const FR_TOP_SUBJECTS = {
-  title: "Insertion · Replacement N°", ico: "🏷️", cat: "c-subj", wide: true,
-  variants: FR_SUBJECTS[0].variants.concat([{ label: "🚫 PAS DE REMPLACEMENT", text: FR_SUBJECTS[2].text, nv: true }]),
-};
-const FR_PRIORITY_NOTES = [
-  Object.assign({}, byTitle(FR_REPLACE, "Insertion"), { ico: "🩹", cat: "c-ins", pills: [P.replace, P.noKit] }),
-  Object.assign({}, byTitle(FR_REPLACE, "DSPC"), { ico: "⚠️", cat: "c-dspc", pills: [P.replace, P.kit] }),
-  Object.assign({}, byTitle(FR_REPLACE, "Multi-sensor"), { ico: "🧩", cat: "c-multi", pills: [P.replace, P.kit] }),
-];
-// remaining no-replacement subjects, together in one card
-const FR_NO_SUBJECTS = {
-  title: "No-replacement subjects", ico: "🏷️", cat: "c-subj",
-  variants: [
-    { label: "DSPC · PAS DE REMPLACEMENT", text: FR_SUBJECTS[3].text, nv: true },
-    { label: "INSERTION · QUOTA DEPASSE", text: FR_SUBJECTS[1].text, nv: true },
-  ],
-};
-const FR_NO_ORDER = [
-  ["Already replaced", "🔁"], ["Incomplete address", "🏠"], ["Invalid SN", "🔢"], ["Same SN twice", "👯"],
-  ["Quota reached", "🛑"], ["Scan again in X minutes (TSG)", "⏱️"], ["Incompatible sensor (TSG)", "🔌"],
-  ["Multiple accounts (not EHPAD)", "👥"], ["Pharmacy address", "💊"], ["Wrong country", "🌍"], ["Fraud", "🕵️"],
-];
-const FR_NO = FR_NO_ORDER.map(([t, ico]) => Object.assign({}, byTitle(FR_NOREPLACE, t), { ico, cat: "c-no", pills: [P.noReplace] }));
-
-// Spain
-const ES_PRIORITY = [
-  Object.assign({}, byTitle(ES_REPLACE, "Insertion"), { ico: "🩹", cat: "c-ins", pills: [P.replace, P.noKit] }),
-  Object.assign({}, byTitle(ES_REPLACE, "DSPC"), { ico: "⚠️", cat: "c-dspc", pills: [P.replace, P.kit] }),
-  Object.assign({}, byTitle(ES_REPLACE, "Read"), { ico: "🩸", cat: "c-read", pills: [P.replace, P.kit] }),
-  Object.assign({}, byTitle(ES_REPLACE, "Multi-sensor"), { ico: "🧩", cat: "c-multi", pills: [P.replace, P.kit] }),
-];
-const ES_NO_ORDER = [
-  ["Health-centre region", "🏥"], ["Already replaced", "🔁"], ["Quota limit reached", "🛑"],
-  ["Caregiver", "🤝"], ["Residential care · multiple accounts", "🏘️"],
-];
-const ES_NO = ES_NO_ORDER.map(([t, ico]) => Object.assign({}, byTitle(ES_NOREPLACE, t), { ico, cat: "c-no", pills: [P.noReplace] }));
 
 /* ================= storage ================= */
 const store = {
@@ -983,13 +594,13 @@ function copyNow(text, html) {
 let toastTimer, lastTimer;
 function toast(msg, isErr) {
   const t = document.getElementById("toast");
-  t.textContent = msg;
+  t.innerHTML = (isErr ? "" : icon("check")) + `<span>${esc(msg)}</span>`;
   t.className = "show" + (isErr ? " err" : "");
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => { t.className = ""; }, isErr ? 3500 : 1200);
 }
 function copied(label) {
-  toast("✅ Copied · " + label);
+  toast("Copied · " + label);
   const last = document.getElementById("last");
   last.querySelector("b").textContent = label;
   last.classList.add("fresh");
@@ -1000,7 +611,7 @@ function copied(label) {
 function selectForManualCopy(node) {
   const r = document.createRange(); r.selectNodeContents(node);
   const s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
-  toast("⚠️ Copy was blocked. The text is selected: press Ctrl+C.", true);
+  toast("Copy was blocked. The text is selected: press Ctrl+C.", true);
 }
 
 /* ================= building blocks ================= */
@@ -1010,29 +621,31 @@ function el(tag, cls, html) {
   if (html !== undefined) n.innerHTML = html;
   return n;
 }
-function pillsHtml(pills) {
-  return (pills || []).map(p => `<span class="pill ${p[0]}">${esc(p[1])}</span>`).join("");
+function pillsHtml(keys) {
+  return (keys || []).map(k => { const p = PILLS[k]; return `<span class="pill ${p[0]}">${icon(p[1])}${esc(p[2])}</span>`; }).join("");
 }
 function section(ico, title, count) {
-  return el("h2", "sec", `<span>${ico}</span><span>${esc(title)}</span>` + (count ? `<span class="count">${count}</span>` : ""));
+  return el("h2", "sec", icon(ico) + `<span>${esc(title)}</span>` + (count ? `<span class="count">${count}</span>` : ""));
 }
-// On screen, each blank line shows as a small gap so cards stay short; the copied text keeps the real blank lines.
+// On screen, blank lines show as small gaps and XXX is highlighted; the copied text is the plain original.
 function bodyEl(text) {
   const d = el("div", "body");
   text.split("\n").forEach(line => {
     if (line === "") d.appendChild(el("div", "gap"));
-    else { const l = el("div", "ln"); l.textContent = line; d.appendChild(l); }
+    else d.appendChild(el("div", "ln", esc(line).replace(/XXX/g, '<span class="ph">XXX</span>')));
   });
   return d;
 }
 function rawEl(text) { const r = el("pre", "raw"); r.textContent = text; r.setAttribute("aria-hidden", "true"); return r; }
+const COPY_HTML = icon("copy") + "<span>Copy</span>";
+const COPIED_HTML = icon("check") + "<span>Copied</span>";
 
 /* card: { title, ico, cat, kind, pills, text | variants, rich, label, wide } */
 function card(o) {
   const kind = o.kind || "note";
   const c = el("div", `card ${kind} ${o.cat || "c-no"}` + (o.wide ? " wide" : ""));
   c.dataset.search = (o.title + " " + (o.text || (o.variants || []).map(v => v.label + " " + v.text).join(" "))).toLowerCase();
-  const head = el("div", "chead", `<span class="ico">${o.ico || "📄"}</span><h3 class="ctitle">${esc(o.title)}</h3>${pillsHtml(o.pills)}`);
+  const head = el("div", "chead", icon(o.ico || "note") + `<h3 class="ctitle">${esc(o.title)}</h3>${pillsHtml(o.pills)}`);
   c.appendChild(head);
   const label = o.label || o.title;
 
@@ -1053,7 +666,7 @@ function card(o) {
       b.addEventListener("focus", () => show(v.text));
       b.addEventListener("click", () => {
         show(v.text);
-        copyNow(v.text, o.rich ? emailHtml(v.text) : null).then(ok => {
+        copyNow(v.text, null).then(ok => {
           if (!ok) return selectForManualCopy(pv);
           b.classList.add("copied");
           clearTimeout(b._t);
@@ -1069,7 +682,7 @@ function card(o) {
     return c;
   }
 
-  const btn = el("span", "copybtn", "📋 Copy");
+  const btn = el("span", "copybtn", COPY_HTML);
   const raw = rawEl(o.text);
   if (kind === "subject") {
     const s = el("span", "subj"); s.textContent = o.text;
@@ -1088,25 +701,16 @@ function card(o) {
   const doCopy = () => copyNow(o.text, o.rich ? emailHtml(o.text) : null).then(ok => {
     if (!ok) return selectForManualCopy(raw);
     c.classList.add("copied");
-    btn.textContent = "✅ Copied";
+    btn.innerHTML = COPIED_HTML;
     clearTimeout(c._t);
-    c._t = setTimeout(() => { c.classList.remove("copied"); btn.textContent = "📋 Copy"; }, 1200);
+    c._t = setTimeout(() => { c.classList.remove("copied"); btn.innerHTML = COPY_HTML; }, 1200);
     copied(label);
   });
-  c.addEventListener("click", e => { if (!e.target.closest(".more")) doCopy(); });
+  c.addEventListener("click", doCopy);
   c.addEventListener("keydown", e => {
     if (e.target !== c) return;
     if (e.key === "Enter" || e.key === " ") { e.preventDefault(); doCopy(); }
   });
-  if (kind === "prompt") {
-    const more = el("button", "more", "▾ Show full prompt");
-    more.type = "button";
-    more.addEventListener("click", () => {
-      const open = c.classList.toggle("open");
-      more.textContent = open ? "▴ Hide" : "▾ Show full prompt";
-    });
-    c.appendChild(more);
-  }
   return c;
 }
 function grid(items, defaults) {
@@ -1114,11 +718,11 @@ function grid(items, defaults) {
   items.forEach(it => g.appendChild(card(Object.assign({}, defaults || {}, it))));
   return g;
 }
+const noDefaults = { cat: "c-no", pills: ["noReplace"] };
 
 /* ================= views ================= */
 function viewMiniMed(root) {
   const chips = el("div", "chips");
-  chips.style.marginTop = "12px";
   MM.forEach(l => {
     const multi = MM.filter(x => x.country === l.country).length > 1;
     const b = el("button", "chip", flag(l.flag) + `<span>${esc(l.country)}</span>` + (multi ? `<small>${esc(l.lang)}</small>` : ""));
@@ -1136,49 +740,40 @@ function viewMiniMed(root) {
 
   const cols = el("div", "cols");
   [
-    { ico: "🩹", head: "Insertion-3", cat: "c-ins", kit: P.noKit, subject: MM_SUBJECT.ins, note: notes.ins, email: loc.no, tag: "Insertion" },
-    { ico: "⚠️", head: "DSPC", cat: "c-dspc", kit: P.noKit, subject: MM_SUBJECT.dspc, note: notes.dspcNo, email: loc.no, tag: "DSPC no return" },
-    { ico: "⚠️", head: "DSPC", cat: "c-dspc", kit: P.kit, subject: MM_SUBJECT.dspc, note: notes.dspcYes, email: loc.yes, tag: "DSPC return kit" },
+    { ico: "ins", head: "Insertion-3", cat: "c-ins", kit: "noKit", subject: MM_SUBJECT.ins, note: notes.ins, email: loc.no, tag: "Insertion" },
+    { ico: "dspc", head: "DSPC", cat: "c-dspc", kit: "noKit", subject: MM_SUBJECT.dspc, note: notes.dspcNo, email: loc.no, tag: "DSPC no return" },
+    { ico: "dspc", head: "DSPC", cat: "c-dspc", kit: "kit", subject: MM_SUBJECT.dspc, note: notes.dspcYes, email: loc.yes, tag: "DSPC return kit" },
   ].forEach(s => {
     const col = el("div", "col");
-    col.appendChild(el("div", "colhead " + s.cat, `<span>${s.ico}</span><span>${esc(s.head)}</span>${pillsHtml([s.kit])}`));
-    col.appendChild(card({ title: "Subject", ico: "🏷️", cat: "c-subj", kind: "subject", text: s.subject, label: s.tag + " subject" }));
-    col.appendChild(card({ title: "Note", ico: "📝", cat: s.cat, kind: "note", text: s.note, label: s.tag + " note" }));
-    col.appendChild(card({ title: "Email", ico: "✉️", cat: "c-mail", kind: "email", rich: true, text: s.email, label: s.tag + " email · " + loc.id }));
+    col.appendChild(el("h3", "coltitle " + s.cat, icon(s.ico) + `<span>${esc(s.head)}</span>${pillsHtml([s.kit])}`));
+    col.appendChild(card({ title: "Subject", ico: "tag", cat: "c-subj", kind: "subject", text: s.subject, label: s.tag + " subject" }));
+    col.appendChild(card({ title: "Note", ico: "note", cat: s.cat, kind: "note", text: s.note, label: s.tag + " note" }));
+    col.appendChild(card({ title: "Email", ico: "mail", cat: "c-mail", kind: "email", rich: true, text: s.email, label: s.tag + " email · " + loc.id }));
     cols.appendChild(col);
   });
   root.appendChild(cols);
 
-  root.appendChild(section("🤖", "AI prompts"));
-  root.appendChild(grid([
-    { title: "Province prompt", ico: "📍", text: MM_PROMPT_PROVINCE },
-    { title: "DSPC prompt", ico: "⚠️", text: MM_PROMPT_DSPC },
-  ], { kind: "prompt", cat: "c-ai" }));
+  const no = [
+    { title: "Already replaced", ico: "cycle", text: notes.already },
+    { title: "Address incorrect or invalid", ico: "pin", text: notes.address },
+  ];
+  if (loc.id === "ES-es") no.push({ title: "Canary Islands · DNI needed", ico: "idcard", text: MM_NOTE.canary });
+  root.appendChild(section("ban", "No replacement", no.length));
+  root.appendChild(grid(no, noDefaults));
 }
 
 function viewFrance(root) {
-  root.appendChild(section("⭐", "Most used"));
   root.appendChild(grid([FR_TOP_SUBJECTS].concat(FR_PRIORITY_NOTES)));
-  root.appendChild(section("🚫", "No replacement · most to least common", FR_NO.length));
-  root.appendChild(grid([FR_NO_SUBJECTS].concat(FR_NO)));
-  root.appendChild(section("🤖", "AI prompts"));
-  root.appendChild(grid([
-    { title: "DSPC prompt", ico: "⚠️", text: FR_PROMPT_DSPC },
-    { title: "Address prompt", ico: "📍", text: FR_PROMPT_ADDRESS },
-  ], { kind: "prompt", cat: "c-ai" }));
+  root.appendChild(section("ban", "No replacement", FR_NO.length));
+  root.appendChild(grid([FR_NO_SUBJECTS].concat(FR_NO.map(n => Object.assign({}, noDefaults, n)))));
 }
 
 function viewSpain(root) {
-  root.appendChild(section("⭐", "Most used"));
   root.appendChild(grid(ES_PRIORITY));
-  root.appendChild(section("🚫", "No replacement · most to least common", ES_NO.length));
-  root.appendChild(grid(ES_NO));
-  root.appendChild(section("✉️", "Email & AI prompts"));
-  root.appendChild(grid([
-    { title: "Hospital email", ico: "🏥", cat: "c-mail", kind: "email", rich: true, text: ES_EMAIL_HOSPITAL },
-    { title: "Address prompt", ico: "📍", kind: "prompt", cat: "c-ai", text: ES_PROMPT_ADDRESS },
-    { title: "DSPC / Read prompt", ico: "⚠️", kind: "prompt", cat: "c-ai", text: ES_PROMPT_TSG },
-  ]));
+  root.appendChild(section("ban", "No replacement", ES_NO.length));
+  root.appendChild(grid(ES_NO, noDefaults));
+  root.appendChild(section("mail", "Email"));
+  root.appendChild(grid([{ title: "Hospital email", ico: "hospital", cat: "c-mail", kind: "email", rich: true, text: ES_EMAIL_HOSPITAL }]));
 }
 const VIEWS = { minimed: viewMiniMed, fr: viewFrance, es: viewSpain };
 
@@ -1187,9 +782,8 @@ function applySearch() {
   const q = state.q.trim().toLowerCase();
   const root = document.getElementById("view");
   root.querySelector(".nores")?.remove();
-  const cards = [...root.querySelectorAll(".card")];
   let shown = 0;
-  cards.forEach(c => {
+  root.querySelectorAll(".card").forEach(c => {
     const hit = !q || q.split(/\s+/).every(w => c.dataset.search.includes(w));
     c.hidden = !hit;
     if (hit) shown++;
@@ -1201,7 +795,7 @@ function applySearch() {
     const n = h.nextElementSibling;
     h.hidden = q !== "" && !(n && [...n.querySelectorAll(".card")].some(c => !c.hidden));
   });
-  if (q && !shown) root.appendChild(el("div", "nores", `<span class="big">🤷</span><b>No templates match “${esc(state.q.trim())}”</b>Press Esc to clear the search.`));
+  if (q && !shown) root.appendChild(el("div", "nores", `<b>No templates match “${esc(state.q.trim())}”</b>Press Esc to clear the search.`));
 }
 
 /* ================= render ================= */
@@ -1209,8 +803,7 @@ function renderTabs() {
   const nav = document.getElementById("tabs");
   nav.innerHTML = "";
   TABS.forEach(t => {
-    const b = el("button", "tab" + (t.cls ? " " + t.cls : ""),
-      (t.flag ? flag(t.flag) : "🩵") + `<span>${esc(t.label)}</span><kbd>${t.key}</kbd>`);
+    const b = el("button", "tab" + (t.cls ? " " + t.cls : ""), flag(t.flag) + `<span>${esc(t.label)}</span><kbd>${t.key}</kbd>`);
     b.type = "button";
     b.setAttribute("role", "tab");
     b.dataset.tab = t.id;
